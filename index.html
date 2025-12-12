@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Boss Battle: Brain Quest</title>
+
+<style>
+/* ========== BASIC LAYOUT ========== */
+body {
+  margin:0;
+  padding:0;
+  font-family:"Comic Sans MS",sans-serif;
+  background:#000;
+  color:#222;
+  text-align:center;
+  overflow:hidden;
+}
+
+#game {
+  max-width:800px;
+  margin:auto;
+  padding:10px;
+  background:#fafafa;
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(0,0,0,0.4);
+  position:relative;
+  z-index:2;
+}
+
+/* headings */
+h1 {
+  margin:10px 0;
+  font-size:1.8em;
+  color:#1b3c6e;
+  text-shadow:1px 1px 2px #fff;
+}
+
+/* ========== STATUS BAR ========== */
+#status {
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  font-weight:bold;
+  background:#cde4ff;
+  border-radius:10px;
+  padding:8px;
+  margin-bottom:6px;
+}
+
+/* ========== BATTLEFIELD ========== */
+#battlefield {
+  position:relative;
+  width:100%;
+  height:240px;
+  overflow:hidden;
+  border-radius:12px;
+  margin-bottom:8px;
+  background:#111;
+}
+
+#bg,#boss,#minion,#dice {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  user-select:none;
+  pointer-events:none;
+}
+
+#bg {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0.9;
+  z-index:1;
+}
+
+#boss {
+  width:280px;
+  height:auto;
+  opacity:0.35;
+  z-index:2;
+  transition:filter 0.3s;
+}
+
+#minion {
+  width:140px;
+  height:auto;
+  z-index:3;
+  opacity:0;
+  transition:transform 2s linear, opacity 1s ease-in;
+}
+
+#dice {
+  width:90px;
+  height:90px;
+  z-index:4;
+  opacity:0;
+  transition:transform 0.3s;
+}
+
+/* ========== QUESTION AREA ========== */
+#question-area {
+  background:#eef7ff;
+  border-radius:10px;
+  padding:10px;
+}
+
+#category {
+  font-weight:bold;
+  font-size:1.2em;
+  margin:4px 0;
+}
+
+#question {
+  margin:6px;
+  min-height:48px;
+}
+
+#choices button {
+  display:block;
+  margin:5px auto;
+  width:70%;
+}
+
+input[type=text] {
+  padding:8px;
+  font-size:16px;
+  width:70%;
+  border-radius:8px;
+  border:1px solid #999;
+  margin-top:6px;
+}
+
+button {
+  background:#4CAF50;
+  color:#fff;
+  padding:8px 14px;
+  margin:6px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:16px;
+}
+
+button:hover { background:#3e8e41; }
+
+#timer,#feedback {
+  margin-top:6px;
+  font-weight:bold;
+}
+
+#feedback { min-height:24px; }
+
+/* ========== DICE ANIMATION ========== */
+@keyframes rollAround {
+  0%   {transform:translate(-50%,-50%) rotate(0deg);}
+  25%  {transform:translate(60%,-60%) rotate(180deg);}
+  50%  {transform:translate(-80%,30%) rotate(360deg);}
+  75%  {transform:translate(40%,60%) rotate(540deg);}
+  100% {transform:translate(-50%,-50%) rotate(720deg);}
+}
+
+.roll-anim { animation:rollAround 1.5s linear; }
+
+/* ========== ACHIEVEMENTS PANEL ========== */
+#achievements {
+  display:none;
+  text-align:left;
+  background:#fff9e0;
+  border-radius:10px;
+  padding:10px;
+  margin-top:10px;
+}
+
+#achievements h3 {
+  margin-top:0;
+  text-align:center;
+}
+
+#achievements ul {
+  list-style-type:none;
+  padding:0;
+  margin:0;
+}
+
+#achievements li {
+  padding:4px 0;
+  border-bottom:1px dashed #ccc;
+  font-size:0.95em;
+}
+
+/* ========== END SCREEN ========== */
+#end-screen {
+  display:none;
+  background:#fff;
+  border-radius:12px;
+  padding:15px;
+  margin-top:10px;
+}
+
+#end-message { font-size:1.4em; font-weight:bold; }
+
+/* boss flash */
+.boss-hit { filter:brightness(250%) drop-shadow(0 0 10px red); }
+</style>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Boss Battle: Brain Quest</title>
+<style>
+body{margin:0;padding:0;font-family:"Comic Sans MS",sans-serif;text-align:center;background:#000;color:#fff;overflow:hidden;}
+#game{max-width:800px;margin:auto;padding:10px;background:#fafafa;color:#222;border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,.4);}
+#status{display:flex;justify-content:space-around;background:#cde4ff;border-radius:10px;padding:6px;font-weight:bold;}
+#battlefield{position:relative;height:220px;margin:10px 0;overflow:hidden;border-radius:12px;background:#111;}
+#bg,#boss,#minion,#dice{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
+#bg{width:100%;height:100%;object-fit:cover;opacity:.8;z-index:1;}
+#boss{width:260px;opacity:.3;z-index:2;transition:filter .3s;}
+#minion{width:120px;opacity:0;z-index:3;transition:transform 2s linear,opacity 1s ease-in;}
+#dice{width:90px;height:90px;z-index:4;opacity:0;}
+#question-area{background:#eef7ff;border-radius:10px;padding:8px;}
+input[type=text]{padding:6px;font-size:16px;border-radius:8px;border:1px solid #999;width:70%;}
+button{background:#4CAF50;color:#fff;padding:6px 14px;margin:4px;border:none;border-radius:8px;cursor:pointer;}
+button:hover{background:#3e8e41;}
+#feedback{font-weight:bold;min-height:20px;}
+@keyframes rollAround{0%{transform:translate(-50%,-50%) rotate(0deg);}25%{transform:translate(70%,-70%) rotate(180deg);}50%{transform:translate(-80%,20%) rotate(360deg);}75%{transform:translate(50%,60%) rotate(540deg);}100%{transform:translate(-50%,-50%) rotate(720deg);}}
+.roll-anim{animation:rollAround 1.5s linear;}
+.boss-hit{filter:brightness(250%) drop-shadow(0 0 10px red);}
+#achievements{display:none;text-align:left;background:#fff9e0;color:#000;border-radius:10px;padding:10px;margin-top:8px;}
+</style>
+</head>
+<body>
+<div id="game">
+  <h1>🧠 Boss Battle: Brain Quest 🐉</h1>
+  <div id="status">
+    <div>HP:<span id="hp">100</span></div>
+    <div>Level:<span id="level">1</span></div>
+    <div>Minions:<span id="minions">10</span></div>
+  </div>
+
+  <div id="battlefield">
+    <img id="bg" src="https://cdn.pixabay.com/photo/2021/04/28/08/06/forest-6212405_960_720.jpg">
+    <img id="boss" src="assets/boss.png">
+    <img id="minion" src="assets/minion1.png">
+    <img id="dice" src="assets/minion2.png">
+  </div>
+
+  <div id="question-area">
+    <p id="category"></p>
+    <p id="question"></p>
+    <div id="choices"></div>
+    <input type="text" id="answer" placeholder="Type answer...">
+    <button id="submit">Submit</button>
+    <p id="timer"></p>
+    <p id="feedback"></p>
+  </div>
+
+  <div id="achievements"><h3>🏅 Achievements</h3><ul id="ach-list"></ul></div>
+</div>
+
+<script>
+// ---------- Sounds ----------
+const sfx = {
+  roll: new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_63180b83a9.mp3?filename=dice-roll-1-111840.mp3"),
+  correct: new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_77a22f85b4.mp3?filename=correct-2-46134.mp3"),
+  wrong: new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_373d347bfb.mp3?filename=error-126627.mp3")
+};
+
+// ---------- Elements ----------
+const hpEl=document.getElementById("hp"),
+      levelEl=document.getElementById("level"),
+      minionsEl=document.getElementById("minions"),
+      catEl=document.getElementById("category"),
+      qEl=document.getElementById("question"),
+      ans=document.getElementById("answer"),
+      sub=document.getElementById("submit"),
+      feedback=document.getElementById("feedback"),
+      dice=document.getElementById("dice"),
+      minion=document.getElementById("minion"),
+      boss=document.getElementById("boss"),
+      timerEl=document.getElementById("timer"),
+      ach=document.getElementById("achievements"),
+      achList=document.getElementById("ach-list");
+
+let hp=100,level=1,minions=10,timer,timeLeft=30,bossHP=40,question={},bossMode=false,streak=0,totalCorrect=0,totalQ=0;
+
+// ---------- Question bank (expand to 300) ----------
+const bank={
+  math:[
+    {q:"8+7=?",a:"15"},
+    {q:"12-9=?",a:"3"},
+    {q:"5×6=?",a:"30"},
+    {q:"24÷8=?",a:"3"}
+  ],
+  language:[
+    {q:"Plural of 'child'?",a:"children"},
+    {q:"Opposite of 'hot'?",a:"cold"}
+  ],
+  riddle:[
+    {q:"I speak without a mouth and hear without ears. What am I?",a:"echo"},
+    {q:"What has to be broken before you can use it?",a:"egg"}
+  ],
+  puzzle:[
+    {q:"What comes next: 2,4,6,8,...",a:"10"},
+    {q:"If you rearrange 'LEPA', you get a fruit:",a:"apple"}
+  ],
+  geography:[
+    {q:"Capital of France?",a:"paris"},
+    {q:"Which continent is Egypt in?",a:"africa"}
+  ],
+  spelling:[
+    {q:"Spell the opposite of 'night'",a:"day"},
+    {q:"Spell the insect that makes honey",a:"bee"}
+  ]
+};
+
+// ---------- Helpers ----------
+function randomCategory(){
+  const keys=Object.keys(bank);
+  return keys[Math.floor(Math.random()*keys.length)];
+}
+function showQuestion(){
+  const cat=randomCategory();
+  const qlist=bank[cat];
+  question=qlist[Math.floor(Math.random()*qlist.length)];
+  catEl.textContent="Category: "+cat.toUpperCase();
+  qEl.textContent=question.q;
+  ans.value="";
+  feedback.textContent="";
+  timeLeft= level<=2?30: level==3?25: level==4?20:15;
+  timerEl.textContent="⏱ "+timeLeft+"s";
+  clearInterval(timer);
+  timer=setInterval(()=>{timeLeft--;timerEl.textContent="⏱ "+timeLeft+"s";if(timeLeft<=0){clearInterval(timer);hp-=10;updateHUD();next();}},1000);
+}
+
+function updateHUD(){hpEl.textContent=hp;levelEl.textContent=level;minionsEl.textContent=minions;}
+
+function next(){
+  if(hp<=0)return end("💀 Out of HP!");
+  if(minions<=0)return bossBattle();
+  minion.style.opacity=1;
+  minion.style.transform="scale(1)";
+  setTimeout(()=>{minion.style.transform="scale(1.4)";},50);
+  setTimeout(()=>{rollDice();},1000);
+}
+
+function rollDice(){
+  dice.style.opacity=1;
+  dice.classList.add("roll-anim");
+  sfx.roll.play();
+  setTimeout(()=>{
+    dice.classList.remove("roll-anim");
+    dice.style.opacity=0;
+    showQuestion();
+  },1500);
+}
+
+// ---------- Check Answer ----------
+function checkAnswer(){
+  clearInterval(timer);
+  const a=ans.value.trim().toLowerCase();
+  totalQ++;
+  if(a===question.a.toLowerCase()){ // correct
+    sfx.correct.play();
+    feedback.textContent="✅ Correct!";
+    totalCorrect++; streak++;
+    hp+=3; minions--; updateHUD();
+  } else {
+    sfx.wrong.play();
+    feedback.textContent="❌ Wrong! ("+question.a+")";
+    hp-=10; streak=0; minions--; updateHUD();
+  }
+  if(minions<=0)bossBattle(); else setTimeout(next,1200);
+}
+
+// ---------- Boss ----------
+function bossBattle(){
+  bossMode=true;
+  feedback.textContent="🔥 Boss Appears!";
+  minion.style.opacity=0;
+  bossHP=level*40;
+  setTimeout(bossQuestion,1500);
+}
+function bossQuestion(){
+  question={q:`Solve: (${10*level}+${5*level}) ÷ 5 = ?`,a:String(3*level)};
+  qEl.textContent=question.q+" (Boss HP:"+bossHP+")";
+  clearInterval(timer);
+  timeLeft=25; timer=setInterval(()=>{timeLeft--;timerEl.textContent="⏱ "+timeLeft+"s";if(timeLeft<=0){clearInterval(timer);hp-=10;updateHUD();bossQuestion();}},1000);
+}
+function bossHit(){
+  boss.classList.add("boss-hit");
+  setTimeout(()=>boss.classList.remove("boss-hit"),300);
+}
+
+// ---------- End / Achievements ----------
+function end(msg){
+  clearInterval(timer);
+  feedback.textContent=msg;
+  ach.style.display="block";
+  const acc=((totalCorrect/totalQ)*100).toFixed(0);
+  achList.innerHTML=`<li>Accuracy: ${acc}%</li><li>Best Streak: ${streak}</li><li>Bosses Defeated: ${level-1}</li>`;
+  localStorage.removeItem("brainquest");
+}
+function win(){
+  level++; localStorage.setItem("brainquest",JSON.stringify({level,hp}));
+  feedback.textContent="🎉 Boss defeated! Level up!";
+  setTimeout(()=>{bossMode=false;minions=10;updateHUD();next();},2000);
+}
+
+// ---------- Init ----------
+sub.onclick=checkAnswer;
+ans.addEventListener("keyup",e=>{if(e.key==="Enter")checkAnswer();});
+
+function loadSave(){
+  const save=localStorage.getItem("brainquest");
+  if(save){const d=JSON.parse(save);level=d.level;hp=d.hp;}
+}
+loadSave(); updateHUD(); next();
+</script>
+</body>
+</html>
+
+
+
+
+</head>
