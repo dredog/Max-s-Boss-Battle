@@ -8,62 +8,15 @@
 body{margin:0;padding:0;font-family:"Comic Sans MS",sans-serif;text-align:center;background:#000;color:#fff;overflow-x:hidden}
 #game{max-width:800px;margin:20px auto;padding:15px;background:#fafafa;color:#222;border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,.4)}
 h1{margin:10px 0;font-size:1.8em;color:#1b3c6e;text-shadow:1px 1px 2px #fff}
-
-/* LEVEL SELECTOR */
-#level-selector{
-background:#e3f2fd;
-padding:20px;
-border-radius:10px;
-margin:15px 0;
-}
+#level-selector{background:#e3f2fd;padding:20px;border-radius:10px;margin:15px 0}
 #level-selector h2{margin-top:0;color:#1565c0}
-.level-btn{
-display:inline-block;
-margin:8px;
-padding:15px 25px;
-background:#2196F3;
-color:#fff;
-border:none;
-border-radius:10px;
-cursor:pointer;
-font-size:16px;
-font-weight:bold;
-transition:all .3s;
-}
-.level-btn:hover{
-background:#1976D2;
-transform:scale(1.05);
-}
-.level-btn.selected{
-background:#0D47A1;
-border:3px solid #FFD700;
-}
-
-/* CONTROLS */
-#controls{
-display:flex;
-justify-content:center;
-gap:10px;
-margin:10px 0;
-flex-wrap:wrap;
-}
-#pause-btn,#music-btn{
-background:#FF9800;
-color:#fff;
-padding:8px 16px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-font-size:14px;
-font-weight:bold;
-}
-#pause-btn:hover,#music-btn:hover{
-background:#F57C00;
-}
-.paused{
-background:#666!important;
-}
-
+.level-btn{display:inline-block;margin:8px;padding:15px 25px;background:#2196F3;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:16px;font-weight:bold;transition:all .3s}
+.level-btn:hover{background:#1976D2;transform:scale(1.05)}
+.level-btn.selected{background:#0D47A1;border:3px solid #FFD700}
+#controls{display:flex;justify-content:center;gap:10px;margin:10px 0;flex-wrap:wrap}
+#pause-btn,#music-btn{background:#FF9800;color:#fff;padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:bold}
+#pause-btn:hover,#music-btn:hover{background:#F57C00}
+.paused{background:#666!important}
 #status{display:flex;justify-content:space-around;background:#cde4ff;border-radius:10px;padding:8px;font-weight:700;margin-bottom:10px;flex-wrap:wrap}
 #status>div{padding:4px;font-size:14px}
 #progress-bar-container{background:#e0e0e0;border-radius:10px;height:25px;margin:10px 0;overflow:hidden;position:relative}
@@ -83,54 +36,16 @@ background:#666!important;
 input[type=text]{padding:10px;font-size:16px;border-radius:8px;border:2px solid #999;width:70%;margin:10px 0}
 button{background:#4CAF50;color:#fff;padding:10px 20px;margin:6px;border:none;border-radius:10px;cursor:pointer;font-size:16px}
 button:hover{background:#3e8e41}
-#next-round-btn{
-background:#FF6B6B;
-font-size:18px;
-padding:15px 30px;
-animation:pulse 1s infinite;
-}
+#next-round-btn{background:#FF6B6B;font-size:18px;padding:15px 30px;animation:pulse 1s infinite}
 #timer{font-size:1.2em;font-weight:700;color:#d32f2f;margin:8px 0}
 #feedback{font-weight:700;min-height:30px;font-size:1.1em;margin:10px 0}
 #difficulty{background:#fff3cd;padding:8px;border-radius:8px;margin:10px 0;font-weight:700}
-
-@keyframes rollAndBounce{
-0%{transform:translate(-50%,-50%) rotate(0deg) scale(1);opacity:1}
-15%{transform:translate(80%,-80%) rotate(180deg) scale(1.2)}
-30%{transform:translate(-90%,20%) rotate(360deg) scale(.9)}
-45%{transform:translate(70%,70%) rotate(540deg) scale(1.1)}
-60%{transform:translate(-60%,-50%) rotate(720deg) scale(1)}
-75%{transform:translate(20%,40%) rotate(900deg) scale(1.05)}
-90%,100%{transform:translate(-50%,-50%) rotate(1080deg) scale(1);opacity:1}
-}
-@keyframes minionAttack{
-0%{transform:translate(-50%,-50%) scale(1)}
-20%{transform:translate(-30%,-30%) scale(1.1) rotate(-5deg)}
-40%{transform:translate(-10%,-10%) scale(1.2) rotate(5deg)}
-60%{transform:translate(10%,10%) scale(1.3) rotate(-5deg)}
-80%{transform:translate(30%,30%) scale(1.2) rotate(5deg)}
-100%{transform:translate(50%,50%) scale(1.1)}
-}
-@keyframes minionDefeat{
-0%{transform:translate(50%,50%) scale(1.1);opacity:1}
-50%{transform:translate(50%,50%) scale(.5) rotate(180deg);opacity:.5}
-100%{transform:translate(50%,80%) scale(.1) rotate(360deg);opacity:0}
-}
-@keyframes victoryPulse{
-0%,100%{transform:scale(1);filter:brightness(100%)}
-50%{transform:scale(1.05);filter:brightness(120%)}
-}
-@keyframes celebrate{
-0%{transform:translateY(0) scale(1)}
-25%{transform:translateY(-20px) scale(1.1)}
-50%{transform:translateY(0) scale(1)}
-75%{transform:translateY(-10px) scale(1.05)}
-100%{transform:translateY(0) scale(1)}
-}
-@keyframes starBurst{
-0%{transform:scale(0) rotate(0deg);opacity:0}
-50%{transform:scale(1.5) rotate(180deg);opacity:1}
-100%{transform:scale(1) rotate(360deg);opacity:0}
-}
+@keyframes rollAndBounce{0%{transform:translate(-50%,-50%) rotate(0deg) scale(1);opacity:1}15%{transform:translate(80%,-80%) rotate(180deg) scale(1.2)}30%{transform:translate(-90%,20%) rotate(360deg) scale(.9)}45%{transform:translate(70%,70%) rotate(540deg) scale(1.1)}60%{transform:translate(-60%,-50%) rotate(720deg) scale(1)}75%{transform:translate(20%,40%) rotate(900deg) scale(1.05)}90%,100%{transform:translate(-50%,-50%) rotate(1080deg) scale(1);opacity:1}}
+@keyframes minionAttack{0%{transform:translate(-50%,-50%) scale(1)}20%{transform:translate(-30%,-30%) scale(1.1) rotate(-5deg)}40%{transform:translate(-10%,-10%) scale(1.2) rotate(5deg)}60%{transform:translate(10%,10%) scale(1.3) rotate(-5deg)}80%{transform:translate(30%,30%) scale(1.2) rotate(5deg)}100%{transform:translate(50%,50%) scale(1.1)}}
+@keyframes minionDefeat{0%{transform:translate(50%,50%) scale(1.1);opacity:1}50%{transform:translate(50%,50%) scale(.5) rotate(180deg);opacity:.5}100%{transform:translate(50%,80%) scale(.1) rotate(360deg);opacity:0}}
+@keyframes victoryPulse{0%,100%{transform:scale(1);filter:brightness(100%)}50%{transform:scale(1.05);filter:brightness(120%)}}
+@keyframes celebrate{0%{transform:translateY(0) scale(1)}25%{transform:translateY(-20px) scale(1.1)}50%{transform:translateY(0) scale(1)}75%{transform:translateY(-10px) scale(1.05)}100%{transform:translateY(0) scale(1)}}
+@keyframes starBurst{0%{transform:scale(0) rotate(0deg);opacity:0}50%{transform:scale(1.5) rotate(180deg);opacity:1}100%{transform:scale(1) rotate(360deg);opacity:0}}
 .roll-anim{animation:rollAndBounce 2s cubic-bezier(.68,-.55,.265,1.55)}
 .boss-hit{filter:brightness(250%) drop-shadow(0 0 15px red);animation:shake .3s}
 .minion-attacking{animation:minionAttack 1s ease-in}
@@ -143,29 +58,16 @@ animation:pulse 1s infinite;
 #achievements li{padding:6px;border-bottom:1px dashed #ccc}
 .correct-feedback{color:#2e7d32;animation:pulse .5s}
 .wrong-feedback{color:#c62828;animation:shake .5s}
-@keyframes pulse{
-0%,100%{transform:scale(1)}
-50%{transform:scale(1.1)}
-}
-@keyframes shake{
-0%,100%{transform:translateX(0)}
-10%,30%,50%,70%,90%{transform:translateX(-5px)}
-20%,40%,60%,80%{transform:translateX(5px)}
-}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}10%,30%,50%,70%,90%{transform:translateX(-5px)}20%,40%,60%,80%{transform:translateX(5px)}}
 #victory-stars{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10}
 .star{position:absolute;font-size:40px;animation:starBurst 1s ease-out forwards}
-@media(max-width:600px){
-#game{margin:10px;padding:10px}
-h1{font-size:1.4em}
-#status>div{font-size:12px}
-#question{font-size:1em}
-}
+@media(max-width:600px){#game{margin:10px;padding:10px}h1{font-size:1.4em}#status>div{font-size:12px}#question{font-size:1em}}
 </style>
 </head>
 <body>
 <div id="game">
 <h1>🧠 Max's Boss Battle 🐉</h1>
-
 <div id="level-selector">
 <h2>Choose Your Starting Level</h2>
 <button class="level-btn" data-level="1">Level 1<br><small>Grade 2</small></button>
@@ -175,14 +77,12 @@ h1{font-size:1.4em}
 <button class="level-btn" data-level="5">Level 5<br><small>Grade 4</small></button>
 <button class="level-btn" data-level="6">Level 6<br><small>Grade 4-5</small></button>
 <button class="level-btn" data-level="7">Level 7<br><small>Grade 5</small></button>
-<button class="level-btn" data-level="8">Level 8+<br><small>Challenge</small></button>
+<button class="level-btn" data-level="8">Level 8<br><small>Challenge</small></button>
 </div>
-
 <div id="controls" style="display:none">
 <button id="pause-btn">⏸️ Pause</button>
 <button id="music-btn">🔊 Music On</button>
 </div>
-
 <div id="difficulty" style="display:none">Level <span id="diff-level">1</span> - Grade <span id="grade-level">2</span></div>
 <div id="status" style="display:none">
 <div>❤️ HP: <span id="hp">100</span></div>
@@ -218,18 +118,15 @@ h1{font-size:1.4em}
 <button id="restart">Play Again</button>
 </div>
 </div>
-
 <audio id="bgMusic" loop>
 <source src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADhAC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7v/////////////////////////////////" type="audio/mp3">
 </audio>
-
 <script>
 const sfx={
 roll:new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_63180b83a9.mp3?filename=dice-roll-1-111840.mp3"),
 correct:new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_77a22f85b4.mp3?filename=correct-2-46134.mp3"),
 wrong:new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_373d347bfb.mp3?filename=error-126627.mp3")
 };
-
 const D=i=>document.getElementById(i);
 const hpEl=D("hp"),lvlEl=D("level"),minEl=D("minions"),stkEl=D("streak"),
 catEl=D("category"),qEl=D("question"),ansEl=D("answer"),subBtn=D("submit"),
@@ -243,230 +140,212 @@ progTxtEl=D("progress-text"),starsEl=D("victory-stars"),
 levelSelector=D("level-selector"),pauseBtn=D("pause-btn"),
 musicBtn=D("music-btn"),bgMusic=D("bgMusic"),
 nextRoundBtn=D("next-round-btn"),controls=D("controls");
-
 let hp=100,lvl=1,minions=10,totalMin=10,streak=0,bestStreak=0,
 totCorrect=0,totQ=0,timer,timeLeft=30,curQ=null,curCat="",
 diffLvl=1,gameOn=false,bossMode=false,bossHP=40,paused=false,
 musicOn=false,waitingForNextRound=false,selectedStartLevel=1;
 
-// EXPANDED QUESTION BANK with Atlanta Braves & Japan/Philippines
 const Q={
 1:{
 math:[
-{q:"What is the sum of 5 plus 3?",a:"8"},
-{q:"If you have 10 apples and eat 4, how many are left?",a:"6"},
-{q:"What is 2 added to 2?",a:"4"},
-{q:"What is 7 minus 3?",a:"4"},
-{q:"Add 6 and 2 together. What do you get?",a:"8"},
-{q:"Subtract 5 from 9. What is the answer?",a:"4"},
-{q:"What is 3 plus 4 equal to?",a:"7"},
-{q:"What is 8 take away 2?",a:"6"},
-{q:"What number do you get when you add 4 and 5?",a:"9"},
-{q:"What is 10 minus 7?",a:"3"},
-{q:"How many sides does a triangle have?",a:"3"},
-{q:"What is 2 times 2?",a:"4"},
-{q:"Multiply 3 by 2. What is the product?",a:"6"},
-{q:"What is 5 multiplied by 2?",a:"10"},
-{q:"What is half of 10?",a:"5"},
-{q:"What is 1 plus 1?",a:"2"},
-{q:"Take 1 away from 6. What remains?",a:"5"},
-{q:"What is the sum of 7 and 2?",a:"9"},
-{q:"Add 8 and 1. What is your answer?",a:"9"},
-{q:"Subtract 4 from 9. What do you get?",a:"5"},
-{q:"What is 5 added to 5?",a:"10"},
-{q:"What is 12 minus 6?",a:"6"},
-{q:"Double the number 3. What do you get?",a:"6"},
-{q:"What is 8 take away 4?",a:"4"},
-{q:"Add 2 to 5. What is the total?",a:"7"},
-{q:"What is 11 minus 5?",a:"6"},
-{q:"What do you get when you add 4 and 4?",a:"8"},
-{q:"Subtract 3 from 10. What is left?",a:"7"},
-{q:"What is 6 plus 3?",a:"9"},
-{q:"What is 7 take away 2?",a:"5"}
+{q:"What is 5 plus 3?",a:"8"},{q:"What is 10 minus 4?",a:"6"},{q:"What is 2 plus 2?",a:"4"},
+{q:"What is 7 minus 3?",a:"4"},{q:"What is 6 plus 2?",a:"8"},{q:"What is 9 minus 5?",a:"4"},
+{q:"What is 3 plus 4?",a:"7"},{q:"What is 8 minus 2?",a:"6"},{q:"What is 4 plus 5?",a:"9"},
+{q:"What is 10 minus 7?",a:"3"},{q:"How many sides does a triangle have?",a:"3"},{q:"What is 2 times 2?",a:"4"},
+{q:"What is 3 times 2?",a:"6"},{q:"What is 5 times 2?",a:"10"},{q:"What is half of 10?",a:"5"},
+{q:"What is 1 plus 1?",a:"2"},{q:"What is 6 minus 1?",a:"5"},{q:"What is 7 plus 2?",a:"9"},
+{q:"What is 8 plus 1?",a:"9"},{q:"What is 9 minus 4?",a:"5"}
 ],
 language:[
-{q:"What is the opposite word of 'hot'?",a:"cold"},
-{q:"What word means the opposite of 'up'?",a:"down"},
-{q:"How many vowels are there in the English alphabet?",a:"5"},
-{q:"What is the plural form of the word 'cat'?",a:"cats"},
-{q:"What letter comes immediately after the letter A?",a:"b"},
-{q:"What do you call a large body of water like the Atlantic?",a:"ocean"},
-{q:"What word means the opposite of 'big'?",a:"small"},
-{q:"What color is the sky on a clear day?",a:"blue"},
-{q:"What day of the week comes after Monday?",a:"tuesday"},
-{q:"What is the word for water that has been frozen solid?",a:"ice"},
-{q:"What word means the opposite of 'sad'?",a:"happy"},
-{q:"How do you spell the number that comes after seven?",a:"eight"},
-{q:"What animal makes the sound 'meow'?",a:"cat"},
-{q:"What do you call the opposite of nighttime?",a:"day"},
-{q:"What color do you make when you mix red and blue together?",a:"purple"},
-{q:"What word is the opposite of 'slow'?",a:"fast"},
-{q:"What do you call a baby dog?",a:"puppy"},
-{q:"What is the opposite word of 'old'?",a:"young"},
-{q:"What is another word for H2O?",a:"water"},
-{q:"What is the plural of 'box'?",a:"boxes"}
+{q:"What is the opposite of hot?",a:"cold"},{q:"What is the opposite of up?",a:"down"},
+{q:"How many vowels in the alphabet?",a:"5"},{q:"What is the plural of cat?",a:"cats"},
+{q:"What letter comes after A?",a:"b"},{q:"What is a large body of water called?",a:"ocean"},
+{q:"What is the opposite of big?",a:"small"},{q:"What color is the sky?",a:"blue"},
+{q:"What day comes after Monday?",a:"tuesday"},{q:"What is frozen water called?",a:"ice"},
+{q:"What is the opposite of sad?",a:"happy"},{q:"How do you spell the number after seven?",a:"eight"},
+{q:"What animal says meow?",a:"cat"},{q:"What is the opposite of night?",a:"day"},
+{q:"What color is red plus blue?",a:"purple"},{q:"What is the opposite of slow?",a:"fast"},
+{q:"What is a baby dog called?",a:"puppy"},{q:"What is the opposite of old?",a:"young"},
+{q:"What is H2O also called?",a:"water"},{q:"What is the plural of box?",a:"boxes"}
 ],
 science:[
-{q:"How many legs does a spider have in total?",a:"8"},
-{q:"What color is most grass that you see?",a:"green"},
-{q:"What sweet food do bees make in their hive?",a:"honey"},
-{q:"How many days are there in one week?",a:"7"},
-{q:"What season comes right after winter?",a:"spring"},
-{q:"What white liquid do cows give us to drink?",a:"milk"},
-{q:"What is the name of the planet we live on?",a:"earth"},
-{q:"How many months are in one year?",a:"12"},
-{q:"Besides water, what else do plants need from the sky to grow?",a:"sunlight"},
-{q:"What animal has a very long nose called a trunk?",a:"elephant"},
-{q:"What does a caterpillar turn into when it grows up?",a:"butterfly"},
-{q:"How many legs does a dog have?",a:"4"},
-{q:"What color is the sun when you see it in the sky?",a:"yellow"},
-{q:"What round objects do chickens lay?",a:"eggs"},
-{q:"What do we call water when it freezes?",a:"ice"}
-],
-riddles:[
-{q:"What has hands on its face but cannot clap them?",a:"clock",time:45},
-{q:"What is full of many holes but can still hold water?",a:"sponge",time:45},
-{q:"What has a face and two hands but no arms or legs?",a:"clock",time:45},
-{q:"What gets wet while it is drying something?",a:"towel",time:45},
-{q:"What needs to be broken before you can use it?",a:"egg",time:45},
-{q:"What is tall when it's young but short when it's old?",a:"candle",time:45},
-{q:"What can you catch but you cannot throw?",a:"cold",time:45},
-{q:"What has a long neck but no head?",a:"bottle",time:45},
-{q:"What begins with T, ends with T, and has T inside?",a:"teapot",time:45},
-{q:"What runs all day but never walks anywhere?",a:"water",time:45}
-],
-sports:[
-{q:"How many bases are there on a baseball field?",a:"4"},
-{q:"What sport uses a bat and a ball?",a:"baseball"},
-{q:"What is the name of the Atlanta baseball team?",a:"braves"},
-{q:"What is the Braves home stadium called?",a:"truist park"},
-{q:"How many players are on a soccer team when on the field?",a:"11"},
-{q:"What is it called when you score a point in soccer?",a:"goal"},
-{q:"In baseball, how many strikes before you're out?",a:"3"},
-{q:"What sport has a player called a goalie?",a:"soccer"},
-{q:"In baseball, what do you run to after you hit the ball?",a:"base"},
-{q:"What do you kick in the game of soccer?",a:"ball"}
-],
-japan_philippines:[
-{q:"What is the capital city of Japan?",a:"tokyo"},
-{q:"What is the capital city of the Philippines?",a:"manila"},
-{q:"What ocean is Japan in?",a:"pacific"},
-{q:"What is the famous mountain in Japan?",a:"fuji"},
-{q:"What ocean surrounds the Philippines?",a:"pacific"},
-{q:"What is sushi made from?",a:"rice"},
-{q:"How many main islands does Japan have?",a:"4"},
-{q:"What language do people speak in Japan?",a:"japanese"},
-{q:"What language do many Filipinos speak besides Tagalog?",a:"english"},
-{q:"What is the traditional Japanese robe called?",a:"kimono"}
+{q:"How many legs does a spider have?",a:"8"},{q:"What color is grass?",a:"green"},
+{q:"What do bees make?",a:"honey"},{q:"How many days in a week?",a:"7"},
+{q:"What season comes after winter?",a:"spring"},{q:"What do cows give us to drink?",a:"milk"},
+{q:"What planet do we live on?",a:"earth"},{q:"How many months in a year?",a:"12"},
+{q:"What do plants need besides water to grow?",a:"sunlight"},{q:"What animal has a trunk?",a:"elephant"},
+{q:"What does a caterpillar become?",a:"butterfly"},{q:"How many legs does a dog have?",a:"4"},
+{q:"What color is the sun?",a:"yellow"},{q:"What do chickens lay?",a:"eggs"},
+{q:"What is frozen water?",a:"ice"}
 ],
 geography:[
-{q:"What is the capital city of the United States?",a:"washington dc"},
-{q:"How many continents are there on Earth?",a:"7"},
-{q:"What is the tallest mountain in the entire world?",a:"everest"},
-{q:"What ocean is on the east coast of the United States?",a:"atlantic"},
-{q:"What country is directly south of the United States?",a:"mexico"},
-{q:"What is the largest country by land area?",a:"russia"},
-{q:"What continent is Egypt in?",a:"africa"},
-{q:"What is the capital city of France?",a:"paris"},
-{q:"What is the longest river in the world?",a:"nile"},
-{q:"In what state is the Grand Canyon?",a:"arizona"},
-{q:"What country is directly north of the United States?",a:"canada"},
-{q:"What is the capital of England?",a:"london"},
-{q:"What ocean is on the west coast of the United States?",a:"pacific"},
-{q:"What is the smallest continent?",a:"australia"},
-{q:"What country has the Great Wall?",a:"china"}
-],
-logic:[
-{q:"What number comes next: 2, 4, 6, 8, __?",a:"10"},
-{q:"What comes next in the pattern: A, B, C, D, __?",a:"e"},
-{q:"If you have 2 apples and get 2 more, how many total?",a:"4"},
-{q:"What shape has 3 sides?",a:"triangle"},
-{q:"What number is missing: 1, 2, __, 4, 5?",a:"3"},
-{q:"What comes after Monday, Tuesday, __?",a:"wednesday"},
-{q:"If all dogs are animals, is your pet dog an animal?",a:"yes"},
-{q:"What number comes before 10?",a:"9"},
-{q:"Complete the pattern: red, blue, red, blue, __?",a:"red"},
-{q:"How many sides does a square have?",a:"4"}
-]
-},
-2:{
-math:[
-{q:"What is the total when you add 12 and 8 together?",a:"20"},
-{q:"If you subtract 7 from 15, what number do you get?",a:"8"},
-{q:"What is the product of 3 times 4?",a:"12"},
-{q:"Divide 20 by 4. What is the quotient?",a:"5"},
-{q:"Multiply 6 by 3. What is your answer?",a:"18"},
-{q:"What is 25 minus 10?",a:"15"},
-{q:"What is 7 multiplied by 2?",a:"14"},
-{q:"What do you get when you divide 16 by 2?",a:"8"},
-{q:"Add 11 and 9. What is the sum?",a:"20"},
-{q:"What is the product when you multiply 4 times 5?",a:"20"},
-{q:"Subtract 9 from 18. What remains?",a:"9"},
-{q:"What is 8 times 3 equal to?",a:"24"},
-{q:"Divide 30 by 5. What is the result?",a:"6"},
-{q:"What is the sum of 13 plus 7?",a:"20"},
-{q:"Multiply 9 by 2. What do you get?",a:"18"}
-],
-language:[
-{q:"What is the plural form of the word 'child'?",a:"children"},
-{q:"How do you spell a word that means 'not quiet' or 'noisy'?",a:"loud"},
-{q:"What type of word is 'run' - is it a noun or a verb?",a:"verb"},
-{q:"What word means the opposite of 'light' when talking about weight?",a:"heavy"},
-{q:"What is a word that rhymes with 'cat'?",a:"bat"},
-{q:"How many syllables are in the word 'elephant'?",a:"3"},
-{q:"How do you spell the word for a baby dog?",a:"puppy"},
-{q:"What punctuation mark goes at the end of a question?",a:"question mark"},
-{q:"How do you spell a word that means 'very happy'?",a:"excited"},
-{q:"What is the plural form of 'mouse'?",a:"mice"}
-],
-science:[
-{q:"How many planets are in our solar system?",a:"8"},
-{q:"What gas do plants breathe in from the air?",a:"carbon dioxide"},
-{q:"What is the name of the largest ocean on Earth?",a:"pacific"},
-{q:"What is the chemical H2O commonly known as?",a:"water"},
-{q:"What gas do we breathe in to stay alive?",a:"oxygen"},
-{q:"What object is at the center of our solar system?",a:"sun"},
-{q:"What do you call an animal that eats only plants?",a:"herbivore"},
-{q:"About how many bones are in the human body?",a:"206"},
-{q:"What is the hardest natural substance found on Earth?",a:"diamond"},
-{q:"What force pulls all objects down toward the Earth?",a:"gravity"}
+{q:"What is the capital of the United States?",a:"washington dc"},{q:"What state is Atlanta in?",a:"georgia"},
+{q:"What ocean is on the west coast of the USA?",a:"pacific"},{q:"What ocean is on the east coast of the USA?",a:"atlantic"},
+{q:"What is the biggest state in the USA?",a:"alaska"},{q:"What state is New York City in?",a:"new york"},
+{q:"What state is Los Angeles in?",a:"california"},{q:"What is the capital of California?",a:"sacramento"},
+{q:"What state is Miami in?",a:"florida"},{q:"What is the capital of Texas?",a:"austin"},
+{q:"What country is Tokyo in?",a:"japan"},{q:"What country is Beijing in?",a:"china"},
+{q:"What is the capital of Japan?",a:"tokyo"},{q:"What ocean is Japan in?",a:"pacific"},
+{q:"What is the biggest country in Asia?",a:"china"},{q:"What is the capital of South Korea?",a:"seoul"},
+{q:"What country is Bangkok in?",a:"thailand"},{q:"What is the capital of India?",a:"new delhi"},
+{q:"What is the capital of the Philippines?",a:"manila"},{q:"What country is Singapore in?",a:"singapore"}
 ],
 riddles:[
-{q:"What object has many keys but cannot open any locks?",a:"piano",time:50},
-{q:"What small item can travel around the world while staying in a corner?",a:"stamp",time:50},
-{q:"What type of building has the most stories in it?",a:"library",time:50},
-{q:"What thing goes up as you get older but never comes down?",a:"age",time:50},
-{q:"What can speak without a mouth and hear without any ears?",a:"echo",time:50},
-{q:"What has a head and a tail but has no body at all?",a:"coin",time:50},
-{q:"What comes once in minute, twice in moment, never in thousand years?",a:"m",time:50},
-{q:"What can you hold in your hands without touching it?",a:"breath",time:50},
-{q:"What has words written inside but never speaks?",a:"book",time:50},
-{q:"What belongs to you but is used more by other people?",a:"name",time:50}
+{q:"What has hands but cannot clap?",a:"clock",time:45},{q:"What is full of holes but holds water?",a:"sponge",time:45},
+{q:"What has a face and two hands but no body?",a:"clock",time:45},{q:"What gets wet while drying?",a:"towel",time:45},
+{q:"What must be broken before you use it?",a:"egg",time:45},{q:"What is tall when young and short when old?",a:"candle",time:45},
+{q:"What can you catch but not throw?",a:"cold",time:45},{q:"What has a neck but no head?",a:"bottle",time:45},
+{q:"What starts with T, ends with T, and has T in it?",a:"teapot",time:45},{q:"What runs but never walks?",a:"water",time:45}
+],
+logic:[
+{q:"What comes next: 2, 4, 6, 8, __?",a:"10"},{q:"What comes next: A, B, C, D, __?",a:"e"},
+{q:"If you have 2 apples and get 2 more, how many total?",a:"4"},{q:"What shape has 3 sides?",a:"triangle"},
+{q:"What number is missing: 1, 2, __, 4, 5?",a:"3"},{q:"What comes after Monday, Tuesday, __?",a:"wednesday"},
+{q:"If all dogs are animals, is your pet dog an animal?",a:"yes"},{q:"What number comes before 10?",a:"9"},
+{q:"Complete: red, blue, red, blue, __?",a:"red"},{q:"How many sides does a square have?",a:"4"}
 ],
 sports:[
-{q:"Which team won the World Series in 2021?",a:"braves"},
-{q:"What year did the Braves win their most recent World Series?",a:"2021"},
-{q:"Who is the Braves star player who won MVP in 2023?",a:"acuna"},
-{q:"What is the Atlanta Braves mascot's name?",a:"blooper"},
-{q:"In what city do the Atlanta Braves play?",a:"atlanta"},
-{q:"What is the Braves home stadium called?",a:"truist park"},
-{q:"Who was the Braves pitcher who won the Cy Young in 2021?",a:"fried"},
-{q:"What state are the Atlanta Braves in?",a:"georgia"},
-{q:"How many World Series has the Braves franchise won?",a:"4"},
-{q:"What year did Truist Park open?",a:"2017"}
+{q:"How many bases on a baseball field?",a:"4"},{q:"What sport uses a bat and ball?",a:"baseball"},
+{q:"What is Atlanta's baseball team called?",a:"braves"},{q:"What is the Braves stadium called?",a:"truist park"},
+{q:"How many players on a soccer field per team?",a:"11"},{q:"What is scoring in soccer called?",a:"goal"},
+{q:"How many strikes for an out in baseball?",a:"3"},{q:"What sport has a goalie?",a:"soccer"},
+{q:"What do you run to after hitting in baseball?",a:"base"},{q:"What do you kick in soccer?",a:"ball"},
+{q:"How many innings in baseball?",a:"9"},{q:"In soccer, what can't you use except the goalie?",a:"hands"},
+{q:"What year did the Braves win the World Series recently?",a:"2021"},{q:"Who is the Braves mascot?",a:"blooper"},
+{q:"What state are the Braves in?",a:"georgia"}
 ],
 japan_philippines:[
-{q:"What is the capital city of Japan?",a:"tokyo"},
-{q:"What is the capital of the Philippines?",a:"manila"},
-{q:"What is the famous volcano mountain in Japan called?",a:"mount fuji"},
-{q:"What ocean are both Japan and Philippines in?",a:"pacific"},
-{q:"What is traditional Japanese food with raw fish called?",a:"sushi"},
-{q:"What is the largest island in the Philippines?",a:"luzon"},
-{q:"What do Japanese people call their emperor?",a:"emperor"},
-{q:"How many main islands make up Japan?",a:"4"},
-{q:"What martial art comes from Japan?",a:"karate"},
-{q:"What is the traditional Filipino shirt called?",a:"barong"}
+{q:"What is the capital of Japan?",a:"tokyo"},{q:"What is the capital of the Philippines?",a:"manila"},
+{q:"What ocean are Japan and Philippines in?",a:"pacific"},{q:"What is the famous mountain in Japan?",a:"mount fuji"},
+{q:"What is sushi made from?",a:"rice"},{q:"How many main islands does Japan have?",a:"4"},
+{q:"What language do people speak in Japan?",a:"japanese"},{q:"What language do Filipinos speak besides Tagalog?",a:"english"},
+{q:"What is the traditional Japanese robe called?",a:"kimono"},{q:"What is the largest island in the Philippines?",a:"luzon"},
+{q:"What martial art comes from Japan?",a:"karate"},{q:"What is the Filipino traditional shirt called?",a:"barong"},
+{q:"What type of food is ramen?",a:"noodles"},{q:"What do you call a Japanese warrior?",a:"samurai"},
+{q:"What volcano is near Manila?",a:"taal"}
 ]
+},
+
+2:{
+math:[
+{q:"What is 12 plus 8?",a:"20"},{q:"What is 15 minus 7?",a:"8"},{q:"What is 3 times 4?",a:"12"},
+{q:"What is 20 divided by 4?",a:"5"},{q:"What is 6 times 3?",a:"18"},{q:"What is 25 minus 10?",a:"15"},
+{q:"What is 7 times 2?",a:"14"},{q:"What is 16 divided by 2?",a:"8"},{q:"What is 11 plus 9?",a:"20"},
+{q:"What is 4 times 5?",a:"20"},{q:"What is 18 minus 9?",a:"9"},{q:"What is 8 times 3?",a:"24"},
+{q:"What is 30 divided by 5?",a:"6"},{q:"What is 13 plus 7?",a:"20"},{q:"What is 9 times 2?",a:"18"},
+{q:"What is 24 divided by 6?",a:"4"},{q:"What is 5 times 5?",a:"25"},{q:"What is 22 minus 8?",a:"14"},
+{q:"What is 6 times 4?",a:"24"},{q:"What is 27 divided by 3?",a:"9"}
+],
+language:[
+{q:"What is the plural of child?",a:"children"},{q:"How do you spell noisy or not quiet?",a:"loud"},
+{q:"Is run a noun or a verb?",a:"verb"},{q:"What is the opposite of light (weight)?",a:"heavy"},
+{q:"What word rhymes with cat?",a:"bat"},{q:"How many syllables in elephant?",a:"3"},
+{q:"How do you spell baby dog?",a:"puppy"},{q:"What mark goes at end of question?",a:"question mark"},
+{q:"How do you spell very happy?",a:"excited"},{q:"What is the plural of mouse?",a:"mice"},
+{q:"How do you spell place with books?",a:"library"},{q:"Which is a vowel: B, E, or F?",a:"e"},
+{q:"How do you spell opposite of weak?",a:"strong"},{q:"What is a synonym for happy?",a:"glad"},
+{q:"How do you spell month after June?",a:"july"},{q:"What is the plural of foot?",a:"feet"},
+{q:"How do you spell not the same?",a:"different"},{q:"What word type describes nouns?",a:"adjective"},
+{q:"How do you spell opposite of early?",a:"late"},{q:"What is the plural of tooth?",a:"teeth"}
+],
+science:[
+{q:"How many planets in our solar system?",a:"8"},{q:"What gas do plants breathe in?",a:"carbon dioxide"},
+{q:"What is the largest ocean?",a:"pacific"},{q:"What is H2O commonly called?",a:"water"},
+{q:"What gas do we breathe to live?",a:"oxygen"},{q:"What is at the center of our solar system?",a:"sun"},
+{q:"What is an animal that eats only plants?",a:"herbivore"},{q:"About how many bones in human body?",a:"206"},
+{q:"What is the hardest natural substance?",a:"diamond"},{q:"What force pulls objects to Earth?",a:"gravity"},
+{q:"What do bees collect from flowers?",a:"nectar"},{q:"What is the largest land animal?",a:"elephant"},
+{q:"What is the closest star to Earth?",a:"sun"},{q:"What state is water vapor?",a:"gas"},
+{q:"What scientist studies rocks?",a:"geologist"},{q:"What is the hottest planet?",a:"venus"},
+{q:"What gas do plants produce that we breathe?",a:"oxygen"},{q:"What is the fastest land animal?",a:"cheetah"},
+{q:"What gas makes up most of Earth's air?",a:"nitrogen"},{q:"What is the smallest planet?",a:"mercury"}
+],
+geography:[
+{q:"What is the capital of Georgia (USA)?",a:"atlanta"},{q:"What state is Chicago in?",a:"illinois"},
+{q:"What is the capital of Florida?",a:"tallahassee"},{q:"What state has Las Vegas?",a:"nevada"},
+{q:"What ocean is near California?",a:"pacific"},{q:"What state is Boston in?",a:"massachusetts"},
+{q:"What is the capital of New York?",a:"albany"},{q:"What state is Seattle in?",a:"washington"},
+{q:"What river runs through the Grand Canyon?",a:"colorado"},{q:"What is the smallest US state?",a:"rhode island"},
+{q:"What country is directly north of USA?",a:"canada"},{q:"What country is directly south of USA?",a:"mexico"},
+{q:"What is the capital of China?",a:"beijing"},{q:"What city is called the Big Apple?",a:"new york"},
+{q:"What country has the Great Wall?",a:"china"},{q:"What is the capital of Vietnam?",a:"hanoi"},
+{q:"What country is Seoul in?",a:"south korea"},{q:"What Asian country is an island?",a:"japan"},
+{q:"What city in Japan is the capital?",a:"tokyo"},{q:"What Asian country has the Taj Mahal?",a:"india"}
+],
+riddles:[
+{q:"What has keys but can't open locks?",a:"piano",time:50},{q:"What travels the world staying in a corner?",a:"stamp",time:50},
+{q:"What building has the most stories?",a:"library",time:50},{q:"What goes up but never down?",a:"age",time:50},
+{q:"What speaks without a mouth and hears without ears?",a:"echo",time:50},{q:"What has a head and tail but no body?",a:"coin",time:50},
+{q:"What comes once in minute, twice in moment, never in thousand years?",a:"m",time:50},
+{q:"What can you hold without touching?",a:"breath",time:50},{q:"What has words but never speaks?",a:"book",time:50},
+{q:"What belongs to you but others use more?",a:"name",time:50}
+],
+logic:[
+{q:"What comes next: 5, 10, 15, 20, __?",a:"25"},{q:"Complete: 2, 4, 6, 8, __?",a:"10"},
+{q:"If today is Monday, what is tomorrow?",a:"tuesday"},{q:"What comes next: 10, 20, 30, __?",a:"40"},
+{q:"What number is middle: 5, 10, 15?",a:"10"},{q:"Which is bigger: 50 or 25?",a:"50"},
+{q:"Complete: triangle, square, triangle, __?",a:"square"},{q:"What comes before 100?",a:"99"},
+{q:"If 2 plus 2 equals 4, what is 3 plus 3?",a:"6"},{q:"What number is between 15 and 17?",a:"16"}
+],
+sports:[
+{q:"Which team won the 2021 World Series?",a:"braves"},{q:"What year did Braves win World Series?",a:"2021"},
+{q:"Who is the Braves star who won MVP in 2023?",a:"acuna"},{q:"What is the Braves mascot named?",a:"blooper"},
+{q:"What city do the Braves play in?",a:"atlanta"},{q:"What is the Braves home stadium?",a:"truist park"},
+{q:"Who was Braves pitcher who won Cy Young in 2021?",a:"fried"},
+{q:"What state are the Atlanta Braves in?",a:"georgia"},{q:"How many World Series has Braves won?",a:"4"},
+{q:"What year did Truist Park open?",a:"2017"},{q:"Who was Braves first baseman in 2021?",a:"freeman"},
+{q:"What division are the Braves in?",a:"nl east"},{q:"What are Braves colors?",a:"red blue"},
+{q:"What was Braves old stadium called?",a:"turner field"},{q:"Who managed Braves in 2021 World Series?",a:"snitker"}
+],
+japan_philippines:[
+{q:"What sea is west of Philippines?",a:"south china sea"},{q:"How many islands are in Philippines?",a:"7000"},
+{q:"What is Japan's currency called?",a:"yen"},{q:"What is Philippines currency called?",a:"peso"},
+{q:"What city hosted 1964 Olympics in Japan?",a:"tokyo"},{q:"What is the national sport of Philippines?",a:"arnis"},
+{q:"What do Japanese people call their country?",a:"nihon"},{q:"What island is Manila on?",a:"luzon"},
+{q:"What flower represents Japan?",a:"cherry blossom"},{q:"What fruit is Philippines known for?",a:"mango"},
+{q:"What writing system does Japan use?",a:"kanji"},{q:"What is Filipino language based on?",a:"tagalog"},
+{q:"What natural disaster hits both countries?",a:"typhoon"},{q:"What sea is between Japan and Korea?",a:"sea of japan"},
+{q:"What is second largest Philippine island?",a:"mindanao"}
+]
+},
+3:{
+math:[{q:"What is 25 times 4?",a:"100"},{q:"What is 144 divided by 12?",a:"12"},{q:"What is 37 plus 28?",a:"65"},{q:"What is 82 minus 47?",a:"35"},{q:"What is 15 times 6?",a:"90"},{q:"What is 72 divided by 8?",a:"9"},{q:"What is perimeter of square with side 5?",a:"20"},{q:"What is 11 times 11?",a:"121"},{q:"What is 156 minus 89?",a:"67"},{q:"What is 18 times 5?",a:"90"},{q:"What is 96 divided by 6?",a:"16"},{q:"What is one half plus one quarter?",a:"0.75"},{q:"What is 45 plus 67?",a:"112"},{q:"What is 12 times 12?",a:"144"},{q:"What is 200 minus 137?",a:"63"},{q:"What is 16 times 7?",a:"112"},{q:"What is 135 divided by 9?",a:"15"},{q:"What is 50 percent of 200?",a:"100"},{q:"What is area of rectangle 8 by 5?",a:"40"},{q:"What is 9 times 13?",a:"117"}],
+language:[{q:"What is a synonym for courageous?",a:"brave"},{q:"What is past tense of run?",a:"ran"},{q:"What word type describes nouns?",a:"adjective"},{q:"How do you spell to make better?",a:"improve"},{q:"What is opposite of ancient?",a:"modern"},{q:"How many syllables in beautiful?",a:"3"},{q:"What punctuation separates list items?",a:"comma"},{q:"How do you spell a life story?",a:"biography"},{q:"What is plural of goose?",a:"geese"},{q:"What is antonym for generous?",a:"selfish"},{q:"How do you spell to work together?",a:"cooperate"},{q:"What is past tense of write?",a:"wrote"},{q:"What compares using like or as?",a:"simile"},{q:"How do you spell female hero?",a:"heroine"},{q:"What is superlative of good?",a:"best"},{q:"What is synonym for intelligent?",a:"smart"},{q:"What is past tense of swim?",a:"swam"},{q:"How do you spell to show?",a:"demonstrate"},{q:"What is plural of knife?",a:"knives"},{q:"What is antonym for difficult?",a:"easy"}],
+science:[{q:"What process do plants use to make food?",a:"photosynthesis"},{q:"What is the smallest unit of life?",a:"cell"},{q:"What force opposes motion?",a:"friction"},{q:"What is Earth's path around sun?",a:"orbit"},{q:"What are the three states of matter?",a:"solid liquid gas"},{q:"What organ pumps blood?",a:"heart"},{q:"What is the largest planet?",a:"jupiter"},{q:"What eats both plants and meat?",a:"omnivore"},{q:"What gas do plants produce?",a:"oxygen"},{q:"What is study of weather?",a:"meteorology"},{q:"At what Celsius does water boil?",a:"100"},{q:"What is the fastest land animal?",a:"cheetah"},{q:"What is the brain's main function?",a:"control"},{q:"What is underground molten rock?",a:"magma"},{q:"How many days for Earth to orbit sun?",a:"365"},{q:"What is study of living things?",a:"biology"},{q:"What is a baby frog called?",a:"tadpole"},{q:"What is the largest organ?",a:"skin"},{q:"What planet is closest to sun?",a:"mercury"},{q:"At what Celsius does water freeze?",a:"0"}],
+geography:[{q:"What is the capital of Hawaii?",a:"honolulu"},{q:"What state is Detroit in?",a:"michigan"},{q:"What is the longest river in USA?",a:"mississippi"},{q:"What mountain range is in Colorado?",a:"rockies"},{q:"What state is Dallas in?",a:"texas"},{q:"What is the capital of Ohio?",a:"columbus"},{q:"What Great Lake touches Michigan?",a:"michigan"},{q:"What desert is in Arizona?",a:"sonoran"},{q:"What state is Mount Rushmore in?",a:"south dakota"},{q:"What is the capital of Pennsylvania?",a:"harrisburg"},{q:"What city is in Hong Kong?",a:"hong kong"},{q:"What country is Hanoi in?",a:"vietnam"},{q:"What is the capital of Taiwan?",a:"taipei"},{q:"What country is Jakarta in?",a:"indonesia"},{q:"What is the capital of Malaysia?",a:"kuala lumpur"},{q:"What country is Yangon in?",a:"myanmar"},{q:"What is highest mountain in Asia?",a:"everest"},{q:"What desert is in China and Mongolia?",a:"gobi"},{q:"What river flows through China?",a:"yangtze"},{q:"What plateau is called Roof of World?",a:"tibet"}],
+riddles:[{q:"More you take, more you leave behind. What am I?",a:"footsteps",time:55},{q:"What has 13 hearts but no organs?",a:"deck of cards",time:55},{q:"What gets wetter as it dries?",a:"towel",time:55},{q:"What runs but never walks?",a:"river",time:55},{q:"What has branches but no leaves?",a:"bank",time:55},{q:"What flies without wings?",a:"time",time:55},{q:"What has ears but cannot hear?",a:"corn",time:55},{q:"What invention lets you see through walls?",a:"window",time:55},{q:"What is so fragile saying its name breaks it?",a:"silence",time:55},{q:"What can you keep after giving away?",a:"word",time:55}],
+logic:[{q:"Pattern: 1, 1, 2, 3, 5, 8, __?",a:"13"},{q:"If all roses are flowers, are some flowers roses?",a:"yes"},{q:"Pattern: 2, 6, 12, 20, __?",a:"30"},{q:"What comes next: J, F, M, A, M, __?",a:"j"},{q:"If you overtake 2nd place, what place are you?",a:"2nd"},{q:"Pattern: 1, 4, 9, 16, 25, __?",a:"36"},{q:"How many months have 28 days?",a:"12"},{q:"Pattern: 100, 50, 25, 12.5, __?",a:"6.25"},{q:"What is next: A, C, F, J, __?",a:"o"},{q:"Complete: square numbers: 1, 4, 9, __?",a:"16"}],
+sports:[{q:"What Braves player is called El Abusador?",a:"acuna"},{q:"What number did Chipper Jones wear?",a:"10"},{q:"Who hit walk-off in 2021 World Series Game 4?",a:"soler"},{q:"What pitcher threw Game 6 of 2021 World Series?",a:"anderson"},{q:"Who was Braves catcher in 2021?",a:"d'arnaud"},{q:"What year did Braves move to Atlanta?",a:"1966"},{q:"Where were Braves before Atlanta?",a:"milwaukee"},{q:"Who hit for cycle for Braves in 2023?",a:"murphy"},{q:"What Braves pitcher won Rookie of Year?",a:"strider"},{q:"Who is Braves all-time home run leader?",a:"aaron"},{q:"What position did Andruw Jones play?",a:"center field"},{q:"Who managed Braves for 25 years?",a:"cox"},{q:"What Braves pitcher won 300 games?",a:"maddux"},{q:"Who caught Tom Glavine's pitches?",a:"lopez"},{q:"What year did Braves win their first World Series in Atlanta?",a:"1995"}],
+japan_philippines:[{q:"What volcano is in Mount Fuji's region?",a:"fuji"},{q:"What is Philippines national hero?",a:"rizal"},{q:"What city was Japan's old capital?",a:"kyoto"},{q:"What sea separates Japan and Korea?",a:"sea of japan"},{q:"What is largest city in Philippines?",a:"quezon city"},{q:"What religion is most common in Philippines?",a:"catholic"},{q:"What religion is most common in Japan?",a:"shinto"},{q:"What is traditional Filipino dance?",a:"tinikling"},{q:"What is Japanese tea ceremony called?",a:"chado"},{q:"What island is Osaka on?",a:"honshu"},{q:"What is the Philippine eagle also called?",a:"monkey eagle"},{q:"What Japanese dish is raw fish?",a:"sashimi"},{q:"What is Filipino breakfast rice called?",a:"sinangag"},{q:"What is Japan's second biggest city?",a:"osaka"},{q:"What Philippine island has Chocolate Hills?",a:"bohol"}]
+},
+4:{
+math:[{q:"What is 347 plus 568?",a:"915"},{q:"What is 23 times 15?",a:"345"},{q:"What is three quarters as percent?",a:"75"},{q:"What is 816 divided by 24?",a:"34"},{q:"What is LCM of 4 and 6?",a:"12"},{q:"What is 15 percent of 200?",a:"30"},{q:"What is 2.5 times 4?",a:"10"},{q:"What is area of triangle base 10 height 6?",a:"30"},{q:"What is 125 divided by 5?",a:"25"},{q:"What is 18 times 18?",a:"324"},{q:"What is square root of 144?",a:"12"},{q:"What is 456 minus 289?",a:"167"},{q:"What is 3 squared plus 4 squared?",a:"25"},{q:"What is 0.25 times 100?",a:"25"},{q:"What is 20 percent of 150?",a:"30"},{q:"What is 17 times 19?",a:"323"},{q:"What is volume of cube with side 3?",a:"27"},{q:"What is 456 plus 789?",a:"1245"},{q:"What is 28 times 16?",a:"448"},{q:"What is two fifths as decimal?",a:"0.4"}],
+language:[{q:"What is main verb in: dog quickly ran home?",a:"ran"},{q:"What gives human qualities to objects?",a:"personification"},{q:"What is past participle of go?",a:"gone"},{q:"How do you spell to make seem larger?",a:"exaggerate"},{q:"What word sounds like what it describes?",a:"onomatopoeia"},{q:"What punctuation shows possession?",a:"apostrophe"},{q:"What is plural of hypothesis?",a:"hypotheses"},{q:"What is synonym for magnificent?",a:"splendid"},{q:"How do you spell newspaper writing?",a:"article"},{q:"What are opposite meaning words?",a:"antonyms"},{q:"What is subject in: tall building collapsed?",a:"building"},{q:"How do you spell to understand fully?",a:"comprehend"},{q:"What is comparative of far?",a:"farther"},{q:"How do you spell extreme tiredness?",a:"exhaustion"},{q:"What is synonym for enormous?",a:"gigantic"},{q:"What is past participle of eat?",a:"eaten"},{q:"How do you spell to convince?",a:"persuade"},{q:"What is plural of crisis?",a:"crises"},{q:"What device is extreme exaggeration?",a:"hyperbole"},{q:"How do you spell to judge?",a:"evaluate"}],
+science:[{q:"What is chemical symbol for gold?",a:"au"},{q:"What is water turning to vapor called?",a:"evaporation"},{q:"What is cell powerhouse?",a:"mitochondria"},{q:"What is study of life?",a:"biology"},{q:"What are protein building blocks?",a:"amino acids"},{q:"What is Earth's innermost layer?",a:"core"},{q:"What is basic heredity unit?",a:"gene"},{q:"What is water's chemical formula?",a:"h2o"},{q:"What causes ocean tides?",a:"gravity"},{q:"What is most abundant gas in air?",a:"nitrogen"},{q:"What is water's freezing point in Fahrenheit?",a:"32"},{q:"What rock forms from cooled magma?",a:"igneous"},{q:"What is cell division called?",a:"mitosis"},{q:"What is smallest bone in body?",a:"stapes"},{q:"What is chemical symbol for iron?",a:"fe"},{q:"What is earthquake study?",a:"seismology"},{q:"What organelle controls cell?",a:"nucleus"},{q:"What is largest organ?",a:"skin"},{q:"What is chemical symbol for sodium?",a:"na"},{q:"What type of rock is limestone?",a:"sedimentary"}],
+geography:[{q:"What is capital of Oregon?",a:"salem"},{q:"What state is Phoenix in?",a:"arizona"},{q:"What is capital of Colorado?",a:"denver"},{q:"What state is Nashville in?",a:"tennessee"},{q:"What Great Lake is deepest?",a:"superior"},{q:"What state is New Orleans in?",a:"louisiana"},{q:"What is capital of Wisconsin?",a:"madison"},{q:"What state is Portland in?",a:"oregon"},{q:"What is capital of Arizona?",a:"phoenix"},{q:"What state has Yellowstone?",a:"wyoming"},{q:"What is capital of Singapore?",a:"singapore"},{q:"What country is Colombo in?",a:"sri lanka"},{q:"What is capital of Nepal?",a:"kathmandu"},{q:"What country is Dhaka in?",a:"bangladesh"},{q:"What is capital of Cambodia?",a:"phnom penh"},{q:"What country is Vientiane in?",a:"laos"},{q:"What mountain range separates Asia from Europe?",a:"urals"},{q:"What river is holy in India?",a:"ganges"},{q:"What country has most people in world?",a:"china"},{q:"What is capital of Mongolia?",a:"ulaanbaatar"}],
+riddles:[{q:"What disappears when you say its name?",a:"silence",time:60},{q:"What can't talk but replies when spoken to?",a:"echo",time:60},{q:"Light as feather, strongest can't hold 5 minutes?",a:"breath",time:60},{q:"What has hands but can't clap?",a:"clock",time:60},{q:"What starts with E, ends with E, has one letter?",a:"envelope",time:60},{q:"What word becomes shorter adding letters?",a:"short",time:60},{q:"What is seen in middle of March and April?",a:"r",time:60},{q:"What can you break without touching?",a:"promise",time:60},{q:"What gets bigger taking away?",a:"hole",time:60},{q:"What is always coming never arrives?",a:"tomorrow",time:60}],
+logic:[{q:"If 3 cats catch 3 mice in 3 minutes, how many catch 100 mice in 100 minutes?",a:"3"},{q:"Pattern: 3, 9, 27, 81, __?",a:"243"},{q:"If today is Monday, what day is 100 days from now?",a:"wednesday"},{q:"Which doesn't belong: triangle, circle, square, rectangle?",a:"circle"},{q:"Pattern: 1, 2, 4, 7, 11, __?",a:"16"},{q:"If you're in race and pass 2nd place, what place are you?",a:"2nd"},{q:"How many times can you subtract 10 from 100?",a:"1"},{q:"Pattern: Z, Y, X, W, __?",a:"v"},{q:"What is next prime: 2, 3, 5, 7, 11, __?",a:"13"},{q:"If 5 machines make 5 widgets in 5 minutes, how many machines for 100 widgets in 100 minutes?",a:"5"}],
+sports:[{q:"What position does Matt Olson play for Braves?",a:"first base"},{q:"What number does Austin Riley wear?",a:"27"},{q:"Who was Braves MVP in 2020?",a:"freeman"},{q:"What Braves player won batting title 2023?",a:"murphy"},{q:"What year was Hank Aaron traded to Brewers?",a:"1975"},{q:"Who hit the first home run for Braves at Truist Park?",a:"freddie freeman"},{q:"What Braves pitcher has most strikeouts in history?",a:"smoltz"},{q:"Who was Braves closer in 2021?",a:"smith"},{q:"What year did Braves clinch division first time at Truist?",a:"2018"},{q:"Who played shortstop for 2021 World Series Braves?",a:"swanson"},{q:"What Braves player wore number 5?",a:"freeman"},{q:"Who is Braves hitting coach?",a:"seitzer"},{q:"What year did Brian Snitker become manager?",a:"2016"},{q:"Who was Braves Game 6 starter in 2021 World Series?",a:"soler"},{q:"What Braves player won Gold Glove in 2023?",a:"harris"}],
+japan_philippines:[{q:"What writing has three systems in Japan?",a:"japanese"},{q:"What currency did Philippines use before peso?",a:"spanish dollar"},{q:"What emperor rules Japan?",a:"naruhito"},{q:"Who discovered Philippines for Spain?",a:"magellan"},{q:"What is Japan's highest peak?",a:"mount fuji"},{q:"What is Philippines highest peak?",a:"apo"},{q:"What prefecture is Tokyo in?",a:"tokyo"},{q:"What region is Manila in?",a:"ncr"},{q:"What is Japanese parliament called?",a:"diet"},{q:"What is Philippine congress called?",a:"senate"},{q:"What year did Japan host Olympics?",a:"1964"},{q:"What year did Philippines gain independence?",a:"1946"},{q:"What is Japan's flag called?",a:"rising sun"},{q:"What colors are Philippine flag?",a:"red white blue"},{q:"What alliance is Philippines in?",a:"seato"}]
+},
+5:{math:[{q:"What is 567 plus 891?",a:"1458"},{q:"What is 29 times 17?",a:"493"},{q:"What is 4/5 as percent?",a:"80"},{q:"What is 1089 divided by 33?",a:"33"},{q:"What is 12 percent of 250?",a:"30"},{q:"What is 6.5 times 12?",a:"78"},{q:"What is square root of 169?",a:"13"},{q:"What is 678 minus 345?",a:"333"},{q:"What is 4 squared plus 3 squared?",a:"25"},{q:"What is 0.6 times 50?",a:"30"},{q:"What is 35 percent of 200?",a:"70"},{q:"What is 21 times 24?",a:"504"},{q:"What is 5/8 as decimal?",a:"0.625"},{q:"What is 896 divided by 28?",a:"32"},{q:"What is LCM of 6 and 8?",a:"24"},{q:"What is 8.4 times 6?",a:"50.4"},{q:"If 2x equals 24, what is x?",a:"12"},{q:"What is perimeter of rectangle 9 by 7?",a:"32"},{q:"What is 234 plus 567?",a:"801"},{q:"What is 19 times 21?",a:"399"}],
+language:[{q:"What is Greek root for life?",a:"bio"},{q:"How do you spell spider fear?",a:"arachnophobia"},{q:"What has two independent clauses?",a:"compound"},{q:"What device is Peter Piper picked?",a:"alliteration"},{q:"How do you spell impossible to read?",a:"illegible"},{q:"What is Latin root for write?",a:"scrib"},{q:"What point of view uses I and me?",a:"first person"},{q:"How do you spell twice a year?",a:"biannual"},{q:"What compares without like or as?",a:"metaphor"},{q:"What is superlative of bad?",a:"worst"},{q:"What is synonym for ubiquitous?",a:"everywhere"},{q:"What is past participle of swim?",a:"swum"},{q:"How do you spell to confirm?",a:"verify"},{q:"What is plural of datum?",a:"data"},{q:"What gives objects human traits?",a:"personification"},{q:"How do you spell to lessen?",a:"diminish"},{q:"What is antonym for optimistic?",a:"pessimistic"},{q:"What is past participle of sing?",a:"sung"},{q:"How do you spell to emphasize?",a:"accentuate"},{q:"What is plural of phenomenon?",a:"phenomena"}],
+science:[{q:"What is Newton's first law about?",a:"inertia"},{q:"What is chemical symbol for iron?",a:"fe"},{q:"What controls what enters cell?",a:"membrane"},{q:"What is earthquake study?",a:"seismology"},{q:"What is largest organ in body?",a:"skin"},{q:"What gas produced in photosynthesis?",a:"oxygen"},{q:"What is atom center?",a:"nucleus"},{q:"What scale measures earthquakes?",a:"richter"},{q:"What is liquid to gas process?",a:"evaporation"},{q:"What planet is Red Planet?",a:"mars"},{q:"What is chemical symbol for silver?",a:"ag"},{q:"What is heredity study?",a:"genetics"},{q:"What type of rock is granite?",a:"igneous"},{q:"What is electron charge?",a:"negative"},{q:"What is chemical symbol for helium?",a:"he"},{q:"What is fungi study?",a:"mycology"},{q:"What organelle produces energy?",a:"mitochondria"},{q:"What is smallest unit of element?",a:"atom"},{q:"What is chemical symbol for mercury?",a:"hg"},{q:"What force opposes motion?",a:"friction"}],
+geography:[{q:"What state is Anchorage in?",a:"alaska"},{q:"What is capital of Alaska?",a:"juneau"},{q:"What state is Charleston in?",a:"south carolina"},{q:"What is capital of Montana?",a:"helena"},{q:"What state is Savannah in?",a:"georgia"},{q:"What is capital of Vermont?",a:"montpelier"},{q:"What state is Raleigh in?",a:"north carolina"},{q:"What mountain range runs down east coast?",a:"appalachian"},{q:"What is capital of Idaho?",a:"boise"},{q:"What desert is in Nevada?",a:"mojave"},{q:"What country is Kathmandu in?",a:"nepal"},{q:"What is capital of Bhutan?",a:"thimphu"},{q:"What country is Kabul in?",a:"afghanistan"},{q:"What is capital of Sri Lanka?",a:"colombo"},{q:"What country is Islamabad in?",a:"pakistan"},{q:"What is largest city in Pakistan?",a:"karachi"},{q:"What peninsula is South Korea on?",a:"korean"},{q:"What strait separates Asia and North America?",a:"bering"},{q:"What is capital of Kazakhstan?",a:"astana"},{q:"What desert covers much of Arabia?",a:"arabian"}],
+riddles:[{q:"What can run but never walks, has mouth but never talks?",a:"river",time:65},{q:"I'm tall when young, short when old, what am I?",a:"candle",time:65},{q:"What has cities but no houses, forests but no trees?",a:"map",time:65},{q:"The more you have of it, the less you see. What is it?",a:"darkness",time:65},{q:"What can fill a room but takes no space?",a:"light",time:65},{q:"What has a bed but never sleeps, runs but never walks?",a:"river",time:65},{q:"What gets sharper the more you use it?",a:"brain",time:65},{q:"What has many needles but doesn't sew?",a:"porcupine",time:65},{q:"What loses its head in morning, gets it back at night?",a:"pillow",time:65},{q:"What has lots of eyes but cannot see?",a:"potato",time:65}],
+logic:[{q:"Mary's father has 5 daughters: Nana, Nene, Nini, Nono. What is fifth name?",a:"mary"},{q:"Pattern: 1, 11, 21, 1211, 111221, __?",a:"312211"},{q:"What is heavier: pound of feathers or pound of gold?",a:"same"},{q:"If there are 12 one-cent stamps in dozen, how many two-cent?",a:"12"},{q:"Pattern: 2, 3, 5, 7, 11, 13, __?",a:"17"},{q:"A farmer has 17 sheep, all but 9 die. How many left?",a:"9"},{q:"What number is next: 3, 3, 6, 18, 72, __?",a:"432"},{q:"If you overtake last runner, what position?",a:"impossible"},{q:"Pattern: 1, 1, 2, 6, 24, __?",a:"120"},{q:"How many birthdays does average person have?",a:"1"}],
+sports:[{q:"What year did Eddie Mathews hit 500th home run?",a:"1967"},{q:"Who threw perfect game for Braves?",a:"none"},{q:"What Braves pitcher won 20 games most seasons?",a:"spahn"},{q:"Who managed Braves to 1995 World Series?",a:"cox"},{q:"What year did Dale Murphy win back-to-back MVPs?",a:"1982"},{q:"Who was Braves closer in 1990s?",a:"wohlers"},{q:"What Braves player hit 51 home runs in 2019?",a:"acuna"},{q:"Who was Braves first overall pick in 2015?",a:"swanson"},{q:"What year did Chipper Jones retire?",a:"2012"},{q:"Who caught Greg Maddux most?",a:"lopez"},{q:"What Braves pitcher won Cy Young 4 times?",a:"maddux"},{q:"Who hit walk-off in 1992 NLCS?",a:"cabrera"},{q:"What year did Braves move to Truist Park?",a:"2017"},{q:"Who was Braves batting champ in 1991?",a:"pendleton"},{q:"What Braves player hit 715th home run?",a:"aaron"}],
+japan_philippines:[{q:"What percentage of Japan is mountainous?",a:"70"},{q:"How many people live in Metro Manila?",a:"13 million"},{q:"What year did US bases leave Philippines?",a:"1992"},{q:"What year did Japan open to West?",a:"1854"},{q:"What shogunate ruled Japan longest?",a:"tokugawa"},{q:"Who is Philippines first president?",a:"aguinaldo"},{q:"What period modernized Japan?",a:"meiji"},{q:"What Commonwealth did Philippines have?",a:"american"},{q:"What is Japan's GDP ranking?",a:"3rd"},{q:"What is Philippines main export?",a:"electronics"},{q:"What volcano erupted in Japan 2014?",a:"ontake"},{q:"What volcano erupted in Philippines 1991?",a:"pinatubo"},{q:"What is oldest shrine in Japan?",a:"ise"},{q:"What is oldest church in Philippines?",a:"san agustin"},{q:"What emperor opened Japan?",a:"meiji"}]
+},6:{math:[{q:"Calculate 789 plus 456",a:"1245"},{q:"What is 34 times 25?",a:"850"},{q:"What is 7/8 as percent?",a:"87.5"},{q:"What is 1440 divided by 36?",a:"40"},{q:"What is 18 percent of 450?",a:"81"},{q:"What is 9.3 times 15?",a:"139.5"},{q:"What is cube root of 27?",a:"3"},{q:"What is 891 minus 456?",a:"435"},{q:"What is 7 squared plus 2 squared?",a:"53"},{q:"What is 0.75 times 80?",a:"60"},{q:"What is 45 percent of 300?",a:"135"},{q:"What is 33 times 27?",a:"891"},{q:"What is 7/12 as decimal?",a:"0.58"},{q:"What is 1056 divided by 32?",a:"33"},{q:"What is GCF of 36 and 48?",a:"12"},{q:"What is 12.6 times 8?",a:"100.8"},{q:"If 3x equals 42, what is x?",a:"14"},{q:"What is area of circle radius 5? (Use 3.14)",a:"78.5"},{q:"What is 456 plus 789?",a:"1245"},{q:"What is 27 times 19?",a:"513"}],language:[{q:"What literary device repeats initial consonant sounds?",a:"alliteration"},{q:"What is past perfect tense of speak?",a:"had spoken"},{q:"What punctuation shows omission in quote?",a:"ellipsis"},{q:"How do you spell to make unclear?",a:"obfuscate"},{q:"What part of speech is however?",a:"adverb"},{q:"What is Latin root for see?",a:"vid"},{q:"What narrative perspective uses they?",a:"third person"},{q:"How do you spell occurring irregularly?",a:"sporadic"},{q:"What comparison is extended metaphor?",a:"analogy"},{q:"What is superlative of many?",a:"most"},{q:"What is synonym for prevalent?",a:"common"},{q:"What is past participle of choose?",a:"chosen"},{q:"How do you spell to make valid?",a:"validate"},{q:"What is plural of criterion?",a:"criteria"},{q:"What literary device hints at future?",a:"foreshadowing"},{q:"How do you spell to make worse?",a:"exacerbate"},{q:"What is antonym for ambiguous?",a:"clear"},{q:"What is past participle of freeze?",a:"frozen"},{q:"How do you spell to spread widely?",a:"disseminate"},{q:"What is plural of medium?",a:"media"}],science:[{q:"What law states object in motion stays in motion?",a:"newton's first"},{q:"What is speed of light in m/s?",a:"300000000"},{q:"What organelle has cristae?",a:"mitochondria"},{q:"What is study of fossils?",a:"paleontology"},{q:"What tissue connects bone to bone?",a:"ligament"},{q:"What gas is in soda bubbles?",a:"carbon dioxide"},{q:"What is DNA shape?",a:"double helix"},{q:"What measures air pressure?",a:"barometer"},{q:"What is cell division for sex cells?",a:"meiosis"},{q:"What planet has Great Red Spot?",a:"jupiter"},{q:"What is chemical symbol for tungsten?",a:"w"},{q:"What is study of insects?",a:"entomology"},{q:"What type of rock has layers?",a:"sedimentary"},{q:"What particle has no charge?",a:"neutron"},{q:"What is chemical symbol for copper?",a:"cu"},{q:"What is study of plants?",a:"botany"},{q:"What organelle makes proteins?",a:"ribosome"},{q:"What is smallest particle of compound?",a:"molecule"},{q:"What is chemical symbol for zinc?",a:"zn"},{q:"What is study of cells?",a:"cytology"}],geography:[{q:"What is longest river in China?",a:"yangtze"},{q:"What US state has most national parks?",a:"california"},{q:"What is second largest country?",a:"canada"},{q:"What trench is deepest in ocean?",a:"mariana"},{q:"What US state has Denali?",a:"alaska"},{q:"What country has most volcanoes?",a:"indonesia"},{q:"What state is Crater Lake in?",a:"oregon"},{q:"What falls are on US-Canada border?",a:"niagara"},{q:"What is capital of Myanmar?",a:"naypyidaw"},{q:"What strait separates Taiwan and China?",a:"taiwan"},{q:"What country is Brunei on?",a:"borneo"},{q:"What is capital of Laos?",a:"vientiane"},{q:"What river flows through Vietnam?",a:"mekong"},{q:"What is largest island in Asia?",a:"borneo"},{q:"What sea is between China and Korea?",a:"yellow"},{q:"What mountains separate India and China?",a:"himalayas"},{q:"What desert is in India and Pakistan?",a:"thar"},{q:"What is capital of Uzbekistan?",a:"tashkent"},{q:"What sea is landlocked?",a:"caspian"},{q:"What cape is southern tip of India?",a:"comorin"}],riddles:[{q:"What English word has three consecutive double letters?",a:"bookkeeper",time:70},{q:"Forward I'm heavy, backward I'm not. What am I?",a:"ton",time:70},{q:"What occurs once in June and December but not in any other month?",a:"e",time:70},{q:"What five-letter word becomes shorter when you add two letters?",a:"short",time:70},{q:"What can point in every direction but can't reach destination?",a:"finger",time:70},{q:"What building has most stories but shortest height?",a:"library",time:70},{q:"What tastes better than it smells?",a:"tongue",time:70},{q:"What has 88 keys but can't open door?",a:"piano",time:70},{q:"What month has 28 days?",a:"all",time:70},{q:"What gets broken without being held?",a:"promise",time:70}],logic:[{q:"If 2 painters paint 2 rooms in 2 hours, how many painters for 10 rooms in 5 hours?",a:"4"},{q:"What comes next: 2, 6, 12, 20, 30, __?",a:"42"},{q:"If it takes 8 men 10 hours to build wall, how long for 4 men?",a:"20"},{q:"Pattern: 1, 1, 2, 3, 5, 8, 13, __?",a:"21"},{q:"If 5 cats catch 5 rats in 5 days, days for 100 cats to catch 100 rats?",a:"5"},{q:"What number gives same result multiplying or adding to itself?",a:"2"},{q:"Pattern: O, T, T, F, F, S, S, E, __?",a:"n"},{q:"If bottle and cork cost $1.10 and bottle costs $1 more than cork, how much is cork?",a:"0.05"},{q:"Pattern: 1, 4, 9, 16, 25, 36, __?",a:"49"},{q:"What are next three letters: J F M A M J __?",a:"j a s"}],sports:[{q:"What year did Braves play last game at Atlanta-Fulton County Stadium?",a:"1996"},{q:"Who hit Braves first home run in 1966 in Atlanta?",a:"mathews"},{q:"What pitcher started Game 1 of 2021 World Series?",a:"morton"},{q:"Who was Braves GM during 1990s dynasty?",a:"schuerholz"},{q:"What year did Braves win 14 straight division titles start?",a:"1991"},{q:"Who hit for Braves in 1999 World Series?",a:"weiss"},{q:"What Braves pitcher won Game 7 in 1991 World Series?",a:"smoltz"},{q:"Who was Braves DH in 2022?",a:"ozuna"},{q:"What year did Braves draft Chipper Jones?",a:"1990"},{q:"Who managed Braves before Bobby Cox?",a:"torre"},{q:"What Braves player won batting title in 2022?",a:"harris"},{q:"Who hit grand slam in 2021 NLCS?",a:"rosario"},{q:"What year did Ronald Acuna debut?",a:"2018"},{q:"Who was Braves shortstop in 1995?",a:"belliard"},{q:"What Braves pitcher threw no-hitter in 1994?",a:"mercker"}],japan_philippines:[{q:"What year did Spain cede Philippines to US?",a:"1898"},{q:"What treaty ended Spanish rule in Philippines?",a:"paris"},{q:"What shogunate preceded Tokugawa?",a:"ashikaga"},{q:"What battle ended Spanish-American War?",a:"manila bay"},{q:"What emperor ruled during WW2 Japan?",a:"hirohito"},{q:"Who led Philippine independence movement?",a:"bonifacio"},{q:"What era followed Meiji in Japan?",a:"taisho"},{q:"What president declared martial law in Philippines?",a:"marcos"},{q:"What city was Japan's capital before Tokyo?",a:"kyoto"},{q:"What revolution ousted Marcos?",a:"people power"},{q:"What clan ruled Japan during Shogunate?",a:"tokugawa"},{q:"Who colonized Philippines before Spain?",a:"none"},{q:"What year did Japan bomb Pearl Harbor?",a:"1941"},{q:"What year did Philippines gain commonwealth?",a:"1935"},{q:"What prefecture is Kyoto in?",a:"kyoto"}]
+},7:{math:[{q:"Solve: 2x + 5 = 17",a:"6"},{q:"What is 15 squared?",a:"225"},{q:"What is 125 cubed?",a:"1953125"},{q:"What is prime factorization of 60?",a:"2 2 3 5"},{q:"What is slope of line through (2,3) and (4,7)?",a:"2"},{q:"What is 3/5 times 5/6?",a:"1/2"},{q:"What is area of triangle with vertices (0,0), (4,0), (0,3)?",a:"6"},{q:"What is 2^10?",a:"1024"},{q:"What is circumference of circle radius 7? (use 3.14)",a:"44"},{q:"Solve: 3(x-2) = 15",a:"7"},{q:"What is square root of 256?",a:"16"},{q:"What is 40 percent of 250?",a:"100"},{q:"What is volume of cylinder radius 3 height 10? (use 3.14)",a:"282.6"},{q:"What is sum of interior angles in pentagon?",a:"540"},{q:"Solve: 2x + 3 = x + 7",a:"4"},{q:"What is 5! (5 factorial)?",a:"120"},{q:"What is 8^2 - 6^2?",a:"28"},{q:"What is distance between (1,2) and (4,6)?",a:"5"},{q:"What is LCM of 12 and 18?",a:"36"},{q:"What is 7/8 times 4/7?",a:"1/2"}],language:[{q:"What device attributes human traits to abstract ideas?",a:"personification"},{q:"What is subjunctive mood used for?",a:"hypothetical"},{q:"What punctuation separates independent clauses?",a:"semicolon"},{q:"How do you spell showing unwillingness?",a:"reluctant"},{q:"What case shows possession?",a:"possessive"},{q:"What is Greek root meaning far?",a:"tele"},{q:"What voice has subject receiving action?",a:"passive"},{q:"How do you spell tending to argue?",a:"contentious"},{q:"What literary device uses symbolic meaning?",a:"allegory"},{q:"What is superlative of little?",a:"least"},{q:"What is synonym for ephemeral?",a:"temporary"},{q:"What is past participle of bear?",a:"borne"},{q:"How do you spell to reduce in value?",a:"depreciate"},{q:"What is plural of locus?",a:"loci"},{q:"What device juxtaposes opposite ideas?",a:"antithesis"},{q:"How do you spell showing great care?",a:"meticulous"},{q:"What is antonym for verbose?",a:"concise"},{q:"What is past participle of forsake?",a:"forsaken"},{q:"How do you spell to make less severe?",a:"mitigate"},{q:"What is plural of alumnus?",a:"alumni"}],science:[{q:"What is Newton's second law formula?",a:"f equals ma"},{q:"What is Avogadro's number approximately?",a:"6.02 times 10^23"},{q:"What type of cell lacks nucleus?",a:"prokaryote"},{q:"What is half-life?",a:"decay time"},{q:"What connects muscle to bone?",a:"tendon"},{q:"What gas makes plants green?",a:"chlorophyll"},{q:"What is genetic material?",a:"dna"},{q:"What instrument measures temperature?",a:"thermometer"},{q:"What is asexual reproduction?",a:"mitosis"},{q:"What planet has fastest orbit?",a:"mercury"},{q:"What is chemical symbol for platinum?",a:"pt"},{q:"What is study of birds?",a:"ornithology"},{q:"What rock can metamorphose from limestone?",a:"marble"},{q:"What particle has positive charge?",a:"proton"},{q:"What is chemical symbol for tin?",a:"sn"},{q:"What is study of fungi?",a:"mycology"},{q:"What organelle digests waste?",a:"lysosome"},{q:"What is H2SO4?",a:"sulfuric acid"},{q:"What is chemical symbol for lead?",a:"pb"},{q:"What is study of heredity?",a:"genetics"}],geography:[{q:"What river forms much of Texas-Mexico border?",a:"rio grande"},{q:"What is highest point in contiguous US?",a:"mount whitney"},{q:"What US state has most earthquakes?",a:"alaska"},{q:"What is capital of North Dakota?",a:"bismarck"},{q:"What US state borders Lake Erie?",a:"ohio"},{q:"What canyon is in northern Arizona?",a:"grand canyon"},{q:"What is capital of Wyoming?",a:"cheyenne"},{q:"What US mountain range runs north-south in west?",a:"sierra nevada"},{q:"What is capital of South Dakota?",a:"pierre"},{q:"What US state is furthest north?",a:"alaska"},{q:"What prefecture is Hiroshima in?",a:"hiroshima"},{q:"What is largest city in Southeast Asia?",a:"jakarta"},{q:"What plateau is in Tibet?",a:"tibetan"},{q:"What desert is in northwest China?",a:"taklamakan"},{q:"What sea is east of Philippines?",a:"philippine sea"},{q:"What is sacred river in Thailand?",a:"chao phraya"},{q:"What mountains are in central Asia?",a:"tian shan"},{q:"What is capital of Azerbaijan?",a:"baku"},{q:"What lake is largest in Southeast Asia?",a:"tonle sap"},{q:"What peninsula is Singapore on?",a:"malay"}],riddles:[{q:"What has no beginning, end, or middle?",a:"donut",time:75},{q:"What can you hold in right hand but never left?",a:"left hand",time:75},{q:"What goes up and down stairs without moving?",a:"carpet",time:75},{q:"What invention allows you to see through walls?",a:"window",time:75},{q:"What is always old and sometimes new, never sad but sometimes blue?",a:"moon",time:75},{q:"What common English word is nine letters long and each time you remove a letter it still remains English word?",a:"startling",time:75},{q:"What word is spelled incorrectly in every dictionary?",a:"incorrectly",time:75},{q:"What has four fingers and thumb but not alive?",a:"glove",time:75},{q:"What can travel world staying in corner?",a:"stamp",time:75},{q:"What begins with T, ends with T, has T in it?",a:"teapot",time:75}],logic:[{q:"Three switches control three bulbs in closed room. How many trips to determine which switch controls which bulb?",a:"2"},{q:"Pattern: 1, 11, 21, 1211, 111221, 312211, __?",a:"13112221"},{q:"If doctor gives you 3 pills take every 30 minutes, how long will they last?",a:"60 minutes"},{q:"Pattern based on Fibonacci: 0, 1, 1, 2, 3, 5, 8, 13, __?",a:"21"},{q:"How can you throw ball as hard as you can and have it come back without hitting anything?",a:"throw up"},{q:"Pattern: 100, 121, 144, 169, __?",a:"196"},{q:"If five people can eat five pizzas in five minutes, how long for ten people to eat ten pizzas?",a:"5 minutes"},{q:"Pattern: 1, 2, 4, 8, 16, 32, __?",a:"64"},{q:"What is next in sequence: 1, 4, 9, 16, 25, 36, 49, __?",a:"64"},{q:"If you have black socks and brown socks in drawer in 4:5 ratio, how many must you take in dark to ensure pair?",a:"3"}],sports:[{q:"What year was first game at Atlanta-Fulton County Stadium?",a:"1966"},{q:"Who was first Braves player to hit 40 home runs after move to Atlanta?",a:"aaron"},{q:"What pitcher started All-Star game for Braves in 1993?",a:"maddux"},{q:"Who was Braves manager before Brian Snitker?",a:"gonzalez"},{q:"What year did Braves clinch pennant on last day?",a:"1991"},{q:"Who hit first inside-park home run at Turner Field?",a:"grissom"},{q:"What pitcher won 20 games for Braves in 1998?",a:"glavine"},{q:"Who was Braves first baseman in 2011?",a:"freeman"},{q:"What year did Andruw Jones win first Gold Glove?",a:"1998"},{q:"Who managed Braves in 1982?",a:"torre"},{q:"What Braves player had 51-game hitting streak in minors?",a:"dimaggio"},{q:"Who hit walk-off home run in 1995 NLDS?",a:"lemke"},{q:"What year did Dale Murphy debut?",a:"1976"},{q:"Who was Braves third baseman in 2005?",a:"jones"},{q:"What Braves pitcher led NL in ERA in 1998?",a:"maddux"}],japan_philippines:[{q:"What year did Edo period begin?",a:"1603"},{q:"What year did Philippines declare independence from Spain?",a:"1898"},{q:"What clan controlled Kyoto during Sengoku period?",a:"oda"},{q:"Who was first president of Philippine Commonwealth?",a:"quezon"},{q:"What year did Perry open Japan?",a:"1854"},{q:"What year did Bataan Death March occur?",a:"1942"},{q:"What shogun unified Japan?",a:"tokugawa"},{q:"Who was Philippine president after Marcos?",a:"aquino"},{q:"What year did Great Kanto Earthquake hit?",a:"1923"},{q:"What year did Mount Pinatubo erupt?",a:"1991"},{q:"What era followed Edo in Japan?",a:"meiji"},{q:"What commonwealth lasted until independence?",a:"philippine"},{q:"What year did Japan adopt constitution?",a:"1947"},{q:"What year did Philippines join UN?",a:"1945"},{q:"What castle is in Osaka?",a:"osaka"}]
+},8:{math:[{q:"Solve for x: x^2 - 5x + 6 = 0",a:"2 or 3"},{q:"What is derivative of x^2?",a:"2x"},{q:"What is integral of 2x?",a:"x^2"},{q:"What is Pythagorean theorem?",a:"a^2 + b^2 = c^2"},{q:"Solve: (x+3)(x-2) = 0",a:"-3 or 2"},{q:"What is slope-intercept form?",a:"y = mx + b"},{q:"What is quadratic formula?",a:"x = -b ± √(b^2-4ac) / 2a"},{q:"What is area formula for circle?",a:"πr^2"},{q:"Simplify: √75",a:"5√3"},{q:"Factor: x^2 - 9",a:"(x+3)(x-3)"},{q:"What is volume formula for sphere?",a:"4/3πr^3"},{q:"Solve: 2^x = 16",a:"4"},{q:"What is surface area of cube side s?",a:"6s^2"},{q:"What is sin(30°)?",a:"0.5"},{q:"What is value of π to 3 decimals?",a:"3.142"},{q:"Solve: |x| = 5",a:"5 or -5"},{q:"What is cos(0°)?",a:"1"},{q:"What is tan(45°)?",a:"1"},{q:"What is e approximately?",a:"2.718"},{q:"Factor: x^2 + 5x + 6",a:"(x+2)(x+3)"}],
+language:[{q:"What device uses opposite meaning from literal?",a:"irony"},{q:"What mood expresses commands?",a:"imperative"},{q:"What punctuation indicates question within sentence?",a:"question mark"},{q:"How do you spell showing extreme care in small details?",a:"fastidious"},{q:"What grammatical structure has two or more independent clauses?",a:"compound"},{q:"What prefix means against?",a:"anti"},{q:"What voice emphasizes action receiver?",a:"passive"},{q:"How do you spell existing only in name?",a:"nominal"},{q:"What literary movement emphasized emotion over reason?",a:"romanticism"},{q:"What is superlative of far?",a:"farthest"},{q:"What is synonym for ubiquitous?",a:"omnipresent"},{q:"What is past perfect progressive of write?",a:"had been writing"},{q:"How do you spell to make legally void?",a:"invalidate"},{q:"What is plural of addendum?",a:"addenda"},{q:"What device references other works?",a:"allusion"},{q:"How do you spell extremely complex?",a:"byzantine"},{q:"What is antonym for laconic?",a:"verbose"},{q:"What is subjunctive of to be?",a:"were"},{q:"How do you spell to prevent or hinder?",a:"preclude"},{q:"What is plural of basis?",a:"bases"}],
+science:[{q:"What is second law of thermodynamics about?",a:"entropy"},{q:"What is Planck's constant approximately?",a:"6.6 times 10^-34"},{q:"What type of cell has membrane-bound organelles?",a:"eukaryote"},{q:"What is formula for photosynthesis?",a:"6CO2 + 6H2O → C6H12O6 + 6O2"},{q:"What is ATP?",a:"adenosine triphosphate"},{q:"What is chemical equation for respiration?",a:"C6H12O6 + 6O2 → 6CO2 + 6H2O"},{q:"What is DNA replication enzyme?",a:"polymerase"},{q:"What measures relative acidity?",a:"ph scale"},{q:"What is cell division for growth?",a:"mitosis"},{q:"What has shortest wavelength?",a:"gamma rays"},{q:"What is chemical symbol for gold?",a:"au"},{q:"What is classification above species?",a:"genus"},{q:"What metamorphic rock forms from sandstone?",a:"quartzite"},{q:"What particle has smallest mass?",a:"electron"},{q:"What is chemical formula for glucose?",a:"c6h12o6"},{q:"What is kingdom for bacteria?",a:"monera"},{q:"What produces ATP?",a:"mitochondria"},{q:"What is HCl?",a:"hydrochloric acid"},{q:"What is atomic number?",a:"protons"},{q:"What is dominant genetic notation?",a:"capital letter"}],
+geography:[{q:"What parallel divides North and South Korea?",a:"38th"},{q:"What is driest place on Earth?",a:"atacama"},{q:"What US state capital has smallest population?",a:"montpelier"},{q:"What is capital of Turkmenistan?",a:"ashgabat"},{q:"What is highest capital city in world?",a:"la paz"},{q:"What tropic passes through northern Australia?",a:"capricorn"},{q:"What is smallest of Great Lakes?",a:"ontario"},{q:"What mountain range divides Europe and Asia?",a:"urals"},{q:"What is capital of Kyrgyzstan?",a:"bishkek"},{q:"What sea has no coastline?",a:"sargasso"},{q:"What strait connects Mediterranean and Atlantic?",a:"gibraltar"},{q:"What is largest inland body of water?",a:"caspian"},{q:"What US state has longest coastline?",a:"alaska"},{q:"What is capital of Tajikistan?",a:"dushanbe"},{q:"What meridian passes through Greenwich?",a:"prime"},{q:"What is deepest point in ocean?",a:"challenger deep"},{q:"What peninsula is in Alaska?",a:"kenai"},{q:"What is capital of Armenia?",a:"yerevan"},{q:"What volcanic chain is in Pacific?",a:"ring of fire"},{q:"What is southernmost US state capital?",a:"honolulu"}],
+riddles:[{q:"I speak without mouth, hear without ears, have no body but come alive with wind. What am I?",a:"echo",time:80},{q:"What English word retains same pronunciation when you remove four of five letters?",a:"queue",time:80},{q:"What occurs four times in every week, twice in every month, once in a year but never in a day?",a:"e",time:80},{q:"What can run but cannot walk, has mouth but never talks, has head but never weeps, has bed but never sleeps?",a:"river",time:80},{q:"What word starts and ends with E but only has one letter?",a:"envelope",time:80},{q:"What five-letter word has six left when you take two letters away?",a:"sixty",time:80},{q:"What goes through cities, over mountains, but never moves?",a:"road",time:80},{q:"What can fill room but takes no space?",a:"light",time:80},{q:"What has hands but cannot clap?",a:"clock",time:80},{q:"What word becomes shorter when you add two letters?",a:"short",time:80}],
+logic:[{q:"If five machines make five widgets in five minutes, how many machines make 100 widgets in 100 minutes?",a:"5"},{q:"Pattern: 2, 3, 5, 7, 11, 13, 17, 19, __?",a:"23"},{q:"Three boxes: gold, silver, bronze. One contains prize. Gold labeled 'Not here', silver 'Not in bronze', bronze 'Here'. All labels wrong. Where is prize?",a:"silver"},{q:"Pattern of squares: 1, 4, 9, 16, 25, 36, 49, __?",a:"64"},{q:"You have 12 balls, one weighs different, balance scale, find different in 3 weighings. Minimum weighings needed?",a:"3"},{q:"Pattern: powers of 2: 2, 4, 8, 16, 32, 64, __?",a:"128"},{q:"Four people need to cross bridge at night with one flashlight in 1, 2, 7, 10 minutes. Two at a time. Minimum time?",a:"17 minutes"},{q:"Pattern cubed: 1, 8, 27, 64, 125, __?",a:"216"},{q:"Three light switches outside closed room with three bulbs inside. Can only enter once. Determine which switch controls which bulb. How?",a:"leave 1 on long, 1 on short, 1 off"},{q:"Pattern: triangular numbers: 1, 3, 6, 10, 15, __?",a:"21"}],
+sports:[{q:"What year did Braves franchise start?",a:"1871"},{q:"What city were Braves before Atlanta?",a:"milwaukee"},{q:"What city were Braves originally?",a:"boston"},{q:"How many no-hitters have been thrown for Braves in Atlanta?",a:"0"},{q:"Who has most wins as Braves pitcher?",a:"spahn"},{q:"What Braves player has most career home runs?",a:"aaron"},{q:"What year did Braves win first World Series?",a:"1914"},{q:"Who managed Braves to 1914 World Series?",a:"stallings"},{q:"What Braves pitcher won 363 games?",a:"spahn"},{q:"Who was Braves owner before Liberty Media?",a:"turner"},{q:"What year did Ted Turner buy Braves?",a:"1976"},{q:"Who broadcast Braves games for decades?",a:"caray"},{q:"What Braves player won NL MVP three times?",a:"schmidt"},{q:"Who was Braves manager in 1980s?",a:"torre"},{q:"What division did Braves join in 1969?",a:"nl west"}],
+japan_philippines:[{q:"What year did Russo-Japanese War end?",a:"1905"},{q:"What treaty ended Philippine-American War?",a:"bates"},{q:"What period preceded Edo in Japan?",a:"azuchi-momoyama"},{q:"Who was Philippine revolutionary writer?",a:"rizal"},{q:"What year did Japan invade Manchuria?",a:"1931"},{q:"What year did Philippines become US territory?",a:"1898"},{q:"What emperor restored imperial rule?",a:"meiji"},{q:"Who led Philippine Revolution of 1896?",a:"bonifacio"},{q:"What year did atomic bombs drop on Japan?",a:"1945"},{q:"What year did MacArthur return to Philippines?",a:"1944"},{q:"What period saw Japanese isolation?",a:"sakoku"},{q:"What commonwealth preceded Philippine independence?",a:"philippine"},{q:"What prefecture is Nagoya in?",a:"aichi"},{q:"What island is Davao on?",a:"mindanao"},{q:"What emperor ruled during Meiji?",a:"mutsuhito"}]
 }
 };
 
@@ -474,14 +353,12 @@ const CAT={
 math:"🔢 MATH",
 language:"📖 LANGUAGE",
 science:"🔬 SCIENCE",
-geography:"🌍 GEOGRAPHY",
+geography:"🌍 GEOGRAPHY (USA & ASIA)",
 riddles:"🤔 RIDDLES",
 logic:"🧩 LOGIC",
 sports:"⚾ ATLANTA BRAVES & SPORTS",
 japan_philippines:"🗾 JAPAN & PHILIPPINES"
 };
-
-// LEVEL SELECTOR
 document.querySelectorAll('.level-btn').forEach(btn=>{
 btn.onclick=()=>{
 document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('selected'));
@@ -491,8 +368,6 @@ startBtn.style.display='inline-block';
 qEl.textContent='Press Start Game to begin!';
 };
 });
-
-// PAUSE FUNCTIONALITY
 pauseBtn.onclick=()=>{
 paused=!paused;
 if(paused){
@@ -518,8 +393,6 @@ wrong("⏰ Time's up!");
 }
 }
 };
-
-// MUSIC TOGGLE
 musicBtn.onclick=()=>{
 musicOn=!musicOn;
 if(musicOn){
@@ -530,34 +403,28 @@ bgMusic.pause();
 musicBtn.textContent='🔊 Music On';
 }
 };
-
-// NEXT ROUND BUTTON
 nextRoundBtn.onclick=()=>{
 waitingForNextRound=false;
 nextRoundBtn.style.display='none';
+if(bossMode){
+startBoss();
+}else{
 nextQ();
+}
 };
-
-const getDiff=()=>{
-if(lvl<=2)return 1;
-if(lvl<=4)return 2;
-return 1;
-};
-
+const getDiff=()=>lvl;
 const updateDiff=()=>{
 diffLvl=getDiff();
 diffLvlEl.textContent=diffLvl;
-const gradeMap={1:"2nd",2:"2nd-3rd"};
-gradeLvlEl.textContent=gradeMap[diffLvl]||"2nd";
+const gradeMap={1:"2nd",2:"2nd-3rd",3:"3rd",4:"3rd-4th",5:"4th",6:"4th-5th",7:"5th",8:"Challenge"};
+gradeLvlEl.textContent=gradeMap[diffLvl]||"Challenge";
 };
-
 const updateProg=()=>{
 const done=totalMin-minions;
 const pct=(done/totalMin)*100;
 progBarEl.style.width=pct+"%";
 progTxtEl.textContent=`Round: ${done}/${totalMin}`;
 };
-
 const updateQCnt=()=>{
 const done=totalMin-minions;
 if(bossMode){
@@ -566,17 +433,15 @@ qCntEl.textContent=`🐉 BOSS FIGHT - Boss HP: ${bossHP}`;
 qCntEl.textContent=`Question ${done+1} of ${totalMin} | Minions Left: ${minions}`;
 }
 };
-
 const getCat=()=>{
-const cats=Object.keys(Q[diffLvl]);
+const cats=Object.keys(Q[diffLvl]||Q[1]);
 return cats[Math.floor(Math.random()*cats.length)];
 };
-
 const getQ=(c)=>{
-const qs=Q[diffLvl][c];
+const qs=(Q[diffLvl]||Q[1])[c];
+if(!qs||qs.length===0)return {q:"Question loading...",a:"test"};
 return qs[Math.floor(Math.random()*qs.length)];
 };
-
 const showVictoryAnimation=()=>{
 for(let i=0;i<10;i++){
 const star=document.createElement('div');
@@ -589,12 +454,10 @@ starsEl.appendChild(star);
 setTimeout(()=>star.remove(),1000);
 }
 };
-
 const minionAttack=()=>{
 minionEl.classList.add('minion-attacking');
 setTimeout(()=>minionEl.classList.remove('minion-attacking'),1000);
 };
-
 const minionDefeated=()=>{
 minionEl.classList.add('minion-defeated');
 setTimeout(()=>{
@@ -602,7 +465,6 @@ minionEl.classList.remove('minion-defeated');
 minionEl.style.opacity=0;
 },800);
 };
-
 const rollDice=(cb)=>{
 sfx.roll.play().catch(()=>{});
 diceEl.style.opacity=1;
@@ -626,7 +488,6 @@ if(cb)cb();
 },800);
 },2000);
 };
-
 const showQ=()=>{
 const q=getQ(curCat);
 curQ=q;
@@ -638,9 +499,7 @@ updateQCnt();
 ansEl.style.display="block";
 ansEl.focus();
 subBtn.style.display="block";
-
-// Extra time for riddles
-timeLeft=curCat==='riddles'?(q.time||45):(diffLvl===1?30:diffLvl===2?25:20);
+timeLeft=curCat==='riddles'?(q.time||45):30;
 updateTimer();
 clearInterval(timer);
 if(!paused){
@@ -654,12 +513,10 @@ wrong("⏰ Time's up!");
 },1000);
 }
 };
-
 const updateTimer=()=>{
 timerEl.textContent=`⏱️ ${timeLeft}s`;
 timerEl.style.color=timeLeft<=5?"#d32f2f":"#1976d2";
 };
-
 const checkAns=(a)=>{
 if(paused)return;
 clearInterval(timer);
@@ -667,18 +524,16 @@ let ua=a||ansEl.value.trim().toLowerCase();
 const ca=curQ.a.toLowerCase();
 totQ++;
 if(ua===ca||ua.includes(ca)||ca.includes(ua))correct();
-else wrong(`❌ Wrong! The correct answer is: ${curQ.a}`);
+else wrong(`❌ Wrong! Correct answer: ${curQ.a}`);
 };
-
 const correct=()=>{
 sfx.correct.play().catch(()=>{});
-fbEl.textContent="✅ Correct! Excellent work!";
+fbEl.textContent="✅ Correct! Excellent!";
 fbEl.className="correct-feedback";
 totCorrect++;
 streak++;
 if(streak>bestStreak)bestStreak=streak;
 hp=Math.min(100,hp+3);
-
 if(bossMode){
 bossHP-=10;
 bossHit();
@@ -691,12 +546,10 @@ updateQCnt();
 setTimeout(showBossQ,1500);
 return;
 }
-
 minions--;
 minionDefeated();
 updateHUD();
 updateProg();
-
 if(minions<=0){
 showVictoryAnimation();
 fbEl.textContent="🎉 All minions defeated! Ready for the boss?";
@@ -708,19 +561,17 @@ nextRoundBtn.style.display='inline-block';
 setTimeout(nextQ,1500);
 }
 };
-
 const wrong=(m)=>{
 sfx.wrong.play().catch(()=>{});
 fbEl.textContent=m;
 fbEl.className="wrong-feedback";
 streak=0;
 hp-=10;
-
 if(bossMode){
 updateHUD();
 updateQCnt();
 if(hp<=0){
-gameOver("💀 You ran out of HP!");
+gameOver("💀 Out of HP!");
 return;
 }
 setTimeout(showBossQ,1500);
@@ -730,12 +581,12 @@ minions--;
 updateHUD();
 updateProg();
 if(hp<=0){
-gameOver("💀 You ran out of HP!");
+gameOver("💀 Out of HP!");
 return;
 }
 if(minions<=0){
 showVictoryAnimation();
-fbEl.textContent="🎉 All minions defeated! Ready for the boss?";
+fbEl.textContent="🎉 All minions defeated! Ready for boss?";
 waitingForNextRound=true;
 ansEl.style.display='none';
 subBtn.style.display='none';
@@ -745,7 +596,6 @@ setTimeout(nextQ,1500);
 }
 }
 };
-
 const nextQ=()=>{
 minionEl.style.opacity=1;
 minionEl.style.transform="scale(1)";
@@ -755,21 +605,19 @@ minionEl.style.opacity=0;
 showQ();
 }),1000);
 };
-
 const startBoss=()=>{
 bossMode=true;
-fbEl.textContent="🔥 BOSS BATTLE! Defeat the boss to advance!";
+fbEl.textContent="🔥 BOSS BATTLE!";
 fbEl.className="";
 minionEl.style.opacity=0;
 bossEl.style.opacity=0.5;
 bossHP=lvl*30;
 setTimeout(showBossQ,1500);
 };
-
 const showBossQ=()=>{
 curCat=getCat();
 curQ=getQ(curCat);
-catEl.textContent=`${CAT[curCat]} - BOSS BATTLE`;
+catEl.textContent=`${CAT[curCat]} - BOSS`;
 qEl.textContent=curQ.q;
 updateQCnt();
 ansEl.value="";
@@ -791,15 +639,13 @@ wrong("⏰ Time's up!");
 },1000);
 }
 };
-
 const bossHit=()=>{
 bossEl.classList.add("boss-hit");
 setTimeout(()=>bossEl.classList.remove("boss-hit"),400);
 };
-
 const defeatBoss=()=>{
 clearInterval(timer);
-fbEl.textContent="🎉 BOSS DEFEATED! LEVELING UP!";
+fbEl.textContent="🎉 BOSS DEFEATED! LEVEL UP!";
 fbEl.className="correct-feedback";
 bossEl.style.opacity=0.35;
 showVictoryAnimation();
@@ -813,21 +659,19 @@ updateHUD();
 updateProg();
 saveProg();
 setTimeout(()=>{
-fbEl.textContent="🎊 Level Complete! Start the next round when ready!";
+fbEl.textContent="🎊 Level Complete! Start next round!";
 waitingForNextRound=true;
 ansEl.style.display='none';
 subBtn.style.display='none';
 nextRoundBtn.style.display='inline-block';
 },2500);
 };
-
 const updateHUD=()=>{
 hpEl.textContent=hp;
 lvlEl.textContent=lvl;
 minEl.textContent=minions;
 stkEl.textContent=streak;
 };
-
 const gameOver=(m)=>{
 clearInterval(timer);
 gameOn=false;
@@ -839,8 +683,8 @@ achEl.style.display="block";
 controls.style.display='none';
 const acc=totQ>0?((totCorrect/totQ)*100).toFixed(1):0;
 achList.innerHTML=`
-<li>📊 Total Questions: ${totQ}</li>
-<li>✅ Correct Answers: ${totCorrect}</li>
+<li>📊 Total: ${totQ}</li>
+<li>✅ Correct: ${totCorrect}</li>
 <li>🎯 Accuracy: ${acc}%</li>
 <li>🔥 Best Streak: ${bestStreak}</li>
 <li>⭐ Highest Level: ${lvl}</li>
@@ -848,12 +692,9 @@ achList.innerHTML=`
 localStorage.removeItem("bossBattle");
 if(musicOn)bgMusic.pause();
 };
-
 const saveProg=()=>{
-const sd={level:lvl,hp:hp,totalCorrect:totCorrect,totalQuestions:totQ,bestStreak:bestStreak};
-localStorage.setItem("bossBattle",JSON.stringify(sd));
+localStorage.setItem("bossBattle",JSON.stringify({level:lvl,hp:hp,totalCorrect:totCorrect,totalQuestions:totQ,bestStreak:bestStreak}));
 };
-
 const loadProg=()=>{
 const sv=localStorage.getItem("bossBattle");
 if(sv){
@@ -867,7 +708,6 @@ updateDiff();
 updateHUD();
 }
 };
-
 const startGame=()=>{
 gameOn=true;
 lvl=selectedStartLevel;
@@ -882,7 +722,6 @@ updateHUD();
 updateProg();
 nextQ();
 };
-
 const restartGame=()=>{
 hp=100;
 lvl=1;
@@ -902,7 +741,7 @@ bossEl.style.opacity=0.35;
 minionEl.style.opacity=0;
 fbEl.textContent="";
 catEl.textContent="Get ready...";
-qEl.textContent="Select your starting level above!";
+qEl.textContent="Select your starting level!";
 qCntEl.textContent="";
 ansEl.style.display="none";
 subBtn.style.display="none";
@@ -925,7 +764,6 @@ updateHUD();
 updateProg();
 localStorage.removeItem("bossBattle");
 };
-
 subBtn.onclick=()=>checkAns();
 ansEl.addEventListener("keyup",(e)=>{if(e.key==="Enter"&&gameOn&&!paused)checkAns();});
 startBtn.onclick=startGame;
