@@ -1,433 +1,622 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<title>Boss Battle: Brain Quest</title>
-
-<style>
-/* ========== BASIC LAYOUT ========== */
-body {
-  margin:0;
-  padding:0;
-  font-family:"Comic Sans MS",sans-serif;
-  background:#000;
-  color:#222;
-  text-align:center;
-  overflow:hidden;
-}
-
-#game {
-  max-width:800px;
-  margin:auto;
-  padding:10px;
-  background:#fafafa;
-  border-radius:15px;
-  box-shadow:0 0 20px rgba(0,0,0,0.4);
-  position:relative;
-  z-index:2;
-}
-
-/* headings */
-h1 {
-  margin:10px 0;
-  font-size:1.8em;
-  color:#1b3c6e;
-  text-shadow:1px 1px 2px #fff;
-}
-
-/* ========== STATUS BAR ========== */
-#status {
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  font-weight:bold;
-  background:#cde4ff;
-  border-radius:10px;
-  padding:8px;
-  margin-bottom:6px;
-}
-
-/* ========== BATTLEFIELD ========== */
-#battlefield {
-  position:relative;
-  width:100%;
-  height:240px;
-  overflow:hidden;
-  border-radius:12px;
-  margin-bottom:8px;
-  background:#111;
-}
-
-#bg,#boss,#minion,#dice {
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  user-select:none;
-  pointer-events:none;
-}
-
-#bg {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0.9;
-  z-index:1;
-}
-
-#boss {
-  width:280px;
-  height:auto;
-  opacity:0.35;
-  z-index:2;
-  transition:filter 0.3s;
-}
-
-#minion {
-  width:140px;
-  height:auto;
-  z-index:3;
-  opacity:0;
-  transition:transform 2s linear, opacity 1s ease-in;
-}
-
-#dice {
-  width:90px;
-  height:90px;
-  z-index:4;
-  opacity:0;
-  transition:transform 0.3s;
-}
-
-/* ========== QUESTION AREA ========== */
-#question-area {
-  background:#eef7ff;
-  border-radius:10px;
-  padding:10px;
-}
-
-#category {
-  font-weight:bold;
-  font-size:1.2em;
-  margin:4px 0;
-}
-
-#question {
-  margin:6px;
-  min-height:48px;
-}
-
-#choices button {
-  display:block;
-  margin:5px auto;
-  width:70%;
-}
-
-input[type=text] {
-  padding:8px;
-  font-size:16px;
-  width:70%;
-  border-radius:8px;
-  border:1px solid #999;
-  margin-top:6px;
-}
-
-button {
-  background:#4CAF50;
-  color:#fff;
-  padding:8px 14px;
-  margin:6px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:16px;
-}
-
-button:hover { background:#3e8e41; }
-
-#timer,#feedback {
-  margin-top:6px;
-  font-weight:bold;
-}
-
-#feedback { min-height:24px; }
-
-/* ========== DICE ANIMATION ========== */
-@keyframes rollAround {
-  0%   {transform:translate(-50%,-50%) rotate(0deg);}
-  25%  {transform:translate(60%,-60%) rotate(180deg);}
-  50%  {transform:translate(-80%,30%) rotate(360deg);}
-  75%  {transform:translate(40%,60%) rotate(540deg);}
-  100% {transform:translate(-50%,-50%) rotate(720deg);}
-}
-
-.roll-anim { animation:rollAround 1.5s linear; }
-
-/* ========== ACHIEVEMENTS PANEL ========== */
-#achievements {
-  display:none;
-  text-align:left;
-  background:#fff9e0;
-  border-radius:10px;
-  padding:10px;
-  margin-top:10px;
-}
-
-#achievements h3 {
-  margin-top:0;
-  text-align:center;
-}
-
-#achievements ul {
-  list-style-type:none;
-  padding:0;
-  margin:0;
-}
-
-#achievements li {
-  padding:4px 0;
-  border-bottom:1px dashed #ccc;
-  font-size:0.95em;
-}
-
-/* ========== END SCREEN ========== */
-#end-screen {
-  display:none;
-  background:#fff;
-  border-radius:12px;
-  padding:15px;
-  margin-top:10px;
-}
-
-#end-message { font-size:1.4em; font-weight:bold; }
-
-/* boss flash */
-.boss-hit { filter:brightness(250%) drop-shadow(0 0 10px red); }
-</style>
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Boss Battle: Brain Quest</title>
+<title>Max's Boss Battle: Brain Quest</title>
 <style>
-body{margin:0;padding:0;font-family:"Comic Sans MS",sans-serif;text-align:center;background:#000;color:#fff;overflow:hidden;}
-#game{max-width:800px;margin:auto;padding:10px;background:#fafafa;color:#222;border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,.4);}
-#status{display:flex;justify-content:space-around;background:#cde4ff;border-radius:10px;padding:6px;font-weight:bold;}
-#battlefield{position:relative;height:220px;margin:10px 0;overflow:hidden;border-radius:12px;background:#111;}
-#bg,#boss,#minion,#dice{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
-#bg{width:100%;height:100%;object-fit:cover;opacity:.8;z-index:1;}
-#boss{width:260px;opacity:.3;z-index:2;transition:filter .3s;}
-#minion{width:120px;opacity:0;z-index:3;transition:transform 2s linear,opacity 1s ease-in;}
-#dice{width:90px;height:90px;z-index:4;opacity:0;}
-#question-area{background:#eef7ff;border-radius:10px;padding:8px;}
-input[type=text]{padding:6px;font-size:16px;border-radius:8px;border:1px solid #999;width:70%;}
-button{background:#4CAF50;color:#fff;padding:6px 14px;margin:4px;border:none;border-radius:8px;cursor:pointer;}
-button:hover{background:#3e8e41;}
-#feedback{font-weight:bold;min-height:20px;}
-@keyframes rollAround{0%{transform:translate(-50%,-50%) rotate(0deg);}25%{transform:translate(70%,-70%) rotate(180deg);}50%{transform:translate(-80%,20%) rotate(360deg);}75%{transform:translate(50%,60%) rotate(540deg);}100%{transform:translate(-50%,-50%) rotate(720deg);}}
-.roll-anim{animation:rollAround 1.5s linear;}
-.boss-hit{filter:brightness(250%) drop-shadow(0 0 10px red);}
-#achievements{display:none;text-align:left;background:#fff9e0;color:#000;border-radius:10px;padding:10px;margin-top:8px;}
+body{margin:0;padding:0;font-family:"Comic Sans MS",sans-serif;text-align:center;background:#000;color:#fff;overflow-x:hidden}
+#game{max-width:800px;margin:20px auto;padding:15px;background:#fafafa;color:#222;border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,.4)}
+h1{margin:10px 0;font-size:1.8em;color:#1b3c6e;text-shadow:1px 1px 2px #fff}
+#status{display:flex;justify-content:space-around;background:#cde4ff;border-radius:10px;padding:8px;font-weight:700;margin-bottom:10px;flex-wrap:wrap}
+#status>div{padding:4px;font-size:14px}
+#progress-bar-container{background:#e0e0e0;border-radius:10px;height:25px;margin:10px 0;overflow:hidden;position:relative}
+#progress-bar{background:linear-gradient(90deg,#4CAF50 0%,#45a049 100%);height:100%;width:0%;transition:width .3s ease;border-radius:10px}
+#progress-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:700;color:#222;font-size:14px}
+#battlefield{position:relative;height:240px;margin:10px 0;overflow:hidden;border-radius:12px;background:#111}
+#bg,#boss,#minion,#dice{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none}
+#bg{width:100%;height:100%;object-fit:cover;opacity:.85;z-index:1}
+#boss{width:280px;opacity:.35;z-index:2;transition:filter .3s}
+#minion{width:140px;opacity:0;z-index:3;transition:transform 2s linear,opacity 1s ease-in}
+#dice{width:120px;height:120px;z-index:4;opacity:0;transition:opacity .3s;border-radius:15px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,.4)}
+#dice-label{color:#fff;font-weight:700;font-size:18px;text-align:center;padding:10px;text-shadow:2px 2px 4px rgba(0,0,0,.5)}
+#question-area{background:#eef7ff;border-radius:10px;padding:12px;min-height:200px}
+#category{font-size:1.3em;font-weight:700;color:#1b3c6e;margin:5px 0}
+#question-counter{font-size:.9em;color:#555;margin:5px 0;font-weight:700}
+#question{font-size:1.1em;margin:10px 0;min-height:60px;display:flex;align-items:center;justify-content:center;padding:10px}
+input[type=text]{padding:10px;font-size:16px;border-radius:8px;border:2px solid #999;width:70%;margin:10px 0}
+button{background:#4CAF50;color:#fff;padding:10px 20px;margin:6px;border:none;border-radius:10px;cursor:pointer;font-size:16px}
+button:hover{background:#3e8e41}
+#timer{font-size:1.2em;font-weight:700;color:#d32f2f;margin:8px 0}
+#feedback{font-weight:700;min-height:30px;font-size:1.1em;margin:10px 0}
+#difficulty{background:#fff3cd;padding:8px;border-radius:8px;margin:10px 0;font-weight:700}
+@keyframes rollAndBounce{0%{transform:translate(-50%,-50%) rotate(0deg) scale(1);opacity:1}15%{transform:translate(80%,-80%) rotate(180deg) scale(1.2)}30%{transform:translate(-90%,20%) rotate(360deg) scale(.9)}45%{transform:translate(70%,70%) rotate(540deg) scale(1.1)}60%{transform:translate(-60%,-50%) rotate(720deg) scale(1)}75%{transform:translate(20%,40%) rotate(900deg) scale(1.05)}90%,100%{transform:translate(-50%,-50%) rotate(1080deg) scale(1);opacity:1}}
+.roll-anim{animation:rollAndBounce 2s cubic-bezier(.68,-.55,.265,1.55)}
+.boss-hit{filter:brightness(250%) drop-shadow(0 0 15px red)}
+#achievements{display:none;text-align:left;background:#fff9e0;color:#000;border-radius:10px;padding:15px;margin-top:10px}
+#achievements h3{text-align:center;margin-top:0}
+#achievements ul{list-style:none;padding:0}
+#achievements li{padding:6px;border-bottom:1px dashed #ccc}
+.correct-feedback{color:#2e7d32;animation:pulse .5s}
+.wrong-feedback{color:#c62828;animation:shake .5s}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+@media(max-width:600px){#game{margin:10px;padding:10px}h1{font-size:1.4em}#status>div{font-size:12px}}
 </style>
 </head>
 <body>
 <div id="game">
-  <h1>🧠 Boss Battle: Brain Quest 🐉</h1>
-  <div id="status">
-    <div>HP:<span id="hp">100</span></div>
-    <div>Level:<span id="level">1</span></div>
-    <div>Minions:<span id="minions">10</span></div>
-  </div>
-
-  <div id="battlefield">
-    <img id="bg" src="https://cdn.pixabay.com/photo/2021/04/28/08/06/forest-6212405_960_720.jpg">
-    <img id="boss" src="assets/boss.png">
-    <img id="minion" src="assets/minion1.png">
-    <img id="dice" src="assets/minion2.png">
-  </div>
-
-  <div id="question-area">
-    <p id="category"></p>
-    <p id="question"></p>
-    <div id="choices"></div>
-    <input type="text" id="answer" placeholder="Type answer...">
-    <button id="submit">Submit</button>
-    <p id="timer"></p>
-    <p id="feedback"></p>
-  </div>
-
-  <div id="achievements"><h3>🏅 Achievements</h3><ul id="ach-list"></ul></div>
+<h1>🧠 Max's Boss Battle 🐉</h1>
+<div id="difficulty">Level <span id="diff-level">1</span> - Grade <span id="grade-level">2</span></div>
+<div id="status">
+<div>❤️ HP: <span id="hp">100</span></div>
+<div>⭐ Level: <span id="level">1</span></div>
+<div>👾 Left: <span id="minions">10</span></div>
+<div>🔥 Streak: <span id="streak">0</span></div>
 </div>
-
+<div id="progress-bar-container">
+<div id="progress-bar"></div>
+<div id="progress-text">Round: 0/10</div>
+</div>
+<div id="battlefield">
+<img id="bg" src="https://cdn.pixabay.com/photo/2021/04/28/08/06/forest-6212405_960_720.jpg" alt="bg">
+<img id="boss" src="assets/boss.png" alt="boss">
+<img id="minion" src="assets/minion1.png" alt="minion">
+<div id="dice"><div id="dice-label">?</div></div>
+</div>
+<div id="question-area">
+<p id="category">Get ready...</p>
+<p id="question-counter"></p>
+<p id="question">Press Start!</p>
+<input type="text" id="answer" placeholder="Type answer..." style="display:none">
+<button id="submit" style="display:none">Submit</button>
+<button id="start-btn">Start Game</button>
+<p id="timer"></p>
+<p id="feedback"></p>
+</div>
+<div id="achievements">
+<h3>🏆 Game Over</h3>
+<ul id="ach-list"></ul>
+<button id="restart">Play Again</button>
+</div>
+</div>
 <script>
-// ---------- Sounds ----------
-const sfx = {
-  roll: new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_63180b83a9.mp3?filename=dice-roll-1-111840.mp3"),
-  correct: new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_77a22f85b4.mp3?filename=correct-2-46134.mp3"),
-  wrong: new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_373d347bfb.mp3?filename=error-126627.mp3")
+
+const sfx={
+roll:new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_63180b83a9.mp3?filename=dice-roll-1-111840.mp3"),
+correct:new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_77a22f85b4.mp3?filename=correct-2-46134.mp3"),
+wrong:new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_373d347bfb.mp3?filename=error-126627.mp3")
+};
+const D=i=>document.getElementById(i),
+hpEl=D("hp"),lvlEl=D("level"),minEl=D("minions"),stkEl=D("streak"),
+catEl=D("category"),qEl=D("question"),ansEl=D("answer"),subBtn=D("submit"),
+fbEl=D("feedback"),diceEl=D("dice"),diceLblEl=D("dice-label"),
+minionEl=D("minion"),bossEl=D("boss"),timerEl=D("timer"),
+achEl=D("achievements"),achList=D("ach-list"),
+startBtn=D("start-btn"),restartBtn=D("restart"),
+diffLvlEl=D("diff-level"),gradeLvlEl=D("grade-level"),
+qCntEl=D("question-counter"),progBarEl=D("progress-bar"),
+progTxtEl=D("progress-text");
+let hp=100,lvl=1,minions=10,totalMin=10,streak=0,bestStreak=0,
+totCorrect=0,totQ=0,timer,timeLeft=30,curQ=null,curCat="",
+diffLvl=1,gameOn=false,bossMode=false,bossHP=40;
+
+const Q={
+1:{
+math:[
+{q:"5+3?",a:"8"},{q:"10-4?",a:"6"},{q:"2+2?",a:"4"},{q:"7-3?",a:"4"},{q:"6+2?",a:"8"},
+{q:"9-5?",a:"4"},{q:"3+4?",a:"7"},{q:"8-2?",a:"6"},{q:"4+5?",a:"9"},{q:"10-7?",a:"3"},
+{q:"Triangle sides?",a:"3"},{q:"2×2?",a:"4"},{q:"3×2?",a:"6"},{q:"5×2?",a:"10"},{q:"Half of 10?",a:"5"},
+{q:"1+1?",a:"2"},{q:"6-1?",a:"5"},{q:"7+2?",a:"9"},{q:"8+1?",a:"9"},{q:"9-4?",a:"5"},
+{q:"5+5?",a:"10"},{q:"12-6?",a:"6"},{q:"3+3?",a:"6"},{q:"8-4?",a:"4"},{q:"2+5?",a:"7"},
+{q:"11-5?",a:"6"},{q:"4+4?",a:"8"},{q:"10-3?",a:"7"},{q:"6+3?",a:"9"},{q:"7-2?",a:"5"},
+{q:"4×2?",a:"8"},{q:"10÷2?",a:"5"},{q:"6÷2?",a:"3"},{q:"8÷4?",a:"2"},{q:"1+8?",a:"9"},
+{q:"9-3?",a:"6"},{q:"5+4?",a:"9"},{q:"12-8?",a:"4"},{q:"3+5?",a:"8"},{q:"10-6?",a:"4"}
+],
+language:[
+{q:"Opposite of hot?",a:"cold"},{q:"Opposite of up?",a:"down"},{q:"Vowels in alphabet?",a:"5"},
+{q:"Plural of cat?",a:"cats"},{q:"Letter after A?",a:"b"},{q:"Large body of water?",a:"ocean"},
+{q:"Opposite of big?",a:"small"},{q:"Color of sky?",a:"blue"},{q:"After Monday?",a:"tuesday"},
+{q:"Frozen water?",a:"ice"},{q:"Opposite of sad?",a:"happy"},{q:"After seven?",a:"eight"},
+{q:"Animal says meow?",a:"cat"},{q:"Opposite of night?",a:"day"},{q:"Red+blue=?",a:"purple"},
+{q:"Opposite of slow?",a:"fast"},{q:"Young dog?",a:"puppy"},{q:"Opposite of old?",a:"young"},
+{q:"Spell H2O",a:"water"},{q:"Plural of box?",a:"boxes"},{q:"Before Z?",a:"y"},
+{q:"After summer?",a:"fall"},{q:"Opposite of quiet?",a:"loud"},{q:"Color of grass?",a:"green"},
+{q:"Plural of dog?",a:"dogs"},{q:"Baby cat?",a:"kitten"},{q:"Opposite of hard?",a:"soft"},
+{q:"After Saturday?",a:"sunday"},{q:"Plural of baby?",a:"babies"},{q:"Says woof?",a:"dog"}
+],
+science:[
+{q:"Spider legs?",a:"8"},{q:"Grass color?",a:"green"},{q:"Bees make?",a:"honey"},
+{q:"Days in week?",a:"7"},{q:"After winter?",a:"spring"},{q:"Cows give?",a:"milk"},
+{q:"We live on?",a:"earth"},{q:"Months in year?",a:"12"},{q:"Plants need?",a:"sunlight"},
+{q:"Long trunk?",a:"elephant"},{q:"Caterpillar becomes?",a:"butterfly"},{q:"Dog legs?",a:"4"},
+{q:"Sun color?",a:"yellow"},{q:"Chickens lay?",a:"eggs"},{q:"Frozen water?",a:"ice"},
+{q:"Bird wings?",a:"2"},{q:"Fish breathe with?",a:"gills"},{q:"After summer?",a:"fall"},
+{q:"Cat legs?",a:"4"},{q:"Opposite hot weather?",a:"cold"},{q:"How many seasons?",a:"4"},
+{q:"Tadpoles become?",a:"frogs"},{q:"Steam from?",a:"water"},{q:"Snow color?",a:"white"},
+{q:"How many eyes?",a:"2"},{q:"Hops and ribbits?",a:"frog"},{q:"Rain made of?",a:"water"},
+{q:"Fingers on hand?",a:"5"},{q:"Birds lay?",a:"eggs"}
+],
+riddles:[
+{q:"Hands but can't clap?",a:"clock"},{q:"Holes but holds water?",a:"sponge"},
+{q:"Face & hands, no arms?",a:"clock"},{q:"Wet while drying?",a:"towel"},
+{q:"Break before use?",a:"egg"},{q:"Tall young, short old?",a:"candle"},
+{q:"Catch not throw?",a:"cold"},{q:"Neck no head?",a:"bottle"},
+{q:"Starts T, ends T, has T?",a:"teapot"},{q:"Runs never walks?",a:"water"},
+{q:"Legs doesn't walk?",a:"table"},{q:"Teeth can't bite?",a:"comb"},
+{q:"Fill room no space?",a:"light"},{q:"Up when rain down?",a:"umbrella"},
+{q:"One eye can't see?",a:"needle"},{q:"Black clean white dirty?",a:"chalkboard"},
+{q:"Four wheels flies?",a:"garbage truck"},{q:"Down never up?",a:"rain"},
+{q:"Thumb fingers not alive?",a:"glove"},{q:"Travel world stay corner?",a:"stamp"}
+],
+sports:[
+{q:"Baseball bases?",a:"4"},{q:"Uses bat & ball?",a:"baseball"},
+{q:"Soccer players on field?",a:"11"},{q:"Soccer score called?",a:"goal"},
+{q:"Strikes for out?",a:"3"},{q:"Has a goalie?",a:"soccer"},
+{q:"Run after hitting?",a:"base"},{q:"Kick in soccer?",a:"ball"},
+{q:"Baseball innings?",a:"9"},{q:"Soccer: no hands except?",a:"goalie"},
+{q:"Pitcher stands on?",a:"mound"},{q:"Hit out of park?",a:"home run"},
+{q:"Soccer ball shape?",a:"round"},{q:"Catch with?",a:"glove"},
+{q:"Who uses hands soccer?",a:"goalie"},{q:"Run around?",a:"bases"},
+{q:"Outs per inning?",a:"3"},{q:"Soccer playing area?",a:"field"},
+{q:"Balls for walk?",a:"4"},{q:"Soccer footwear?",a:"cleats"}
+]
+},
+
+2:{
+math:[
+{q:"12+8?",a:"20"},{q:"15-7?",a:"8"},{q:"3×4?",a:"12"},{q:"20÷4?",a:"5"},{q:"6×3?",a:"18"},
+{q:"25-10?",a:"15"},{q:"7×2?",a:"14"},{q:"16÷2?",a:"8"},{q:"11+9?",a:"20"},{q:"4×5?",a:"20"},
+{q:"18-9?",a:"9"},{q:"8×3?",a:"24"},{q:"30÷5?",a:"6"},{q:"13+7?",a:"20"},{q:"9×2?",a:"18"},
+{q:"24÷6?",a:"4"},{q:"5×5?",a:"25"},{q:"22-8?",a:"14"},{q:"6×4?",a:"24"},{q:"27÷3?",a:"9"},
+{q:"14+6?",a:"20"},{q:"21-12?",a:"9"},{q:"7×3?",a:"21"},{q:"32÷4?",a:"8"},{q:"17+8?",a:"25"},
+{q:"28-13?",a:"15"},{q:"9×3?",a:"27"},{q:"35÷7?",a:"5"},{q:"19+11?",a:"30"},{q:"26-14?",a:"12"},
+{q:"8×4?",a:"32"},{q:"40÷8?",a:"5"},{q:"23+17?",a:"40"},{q:"33-18?",a:"15"},{q:"6×6?",a:"36"},
+{q:"45÷9?",a:"5"},{q:"16+14?",a:"30"},{q:"29-15?",a:"14"},{q:"7×5?",a:"35"},{q:"36÷6?",a:"6"}
+],
+language:[
+{q:"Plural of child?",a:"children"},{q:"Not quiet?",a:"loud"},{q:"Run is a?",a:"verb"},
+{q:"Opposite light (weight)?",a:"heavy"},{q:"Rhymes with cat?",a:"bat"},{q:"Elephant syllables?",a:"3"},
+{q:"Baby dog?",a:"puppy"},{q:"End of question?",a:"question mark"},{q:"Very happy?",a:"excited"},
+{q:"Plural of mouse?",a:"mice"},{q:"Books kept in?",a:"library"},{q:"Vowel: B,E,F?",a:"e"},
+{q:"Opposite of weak?",a:"strong"},{q:"Synonym happy?",a:"glad"},{q:"After June?",a:"july"},
+{q:"Plural of foot?",a:"feet"},{q:"Not the same?",a:"different"},{q:"Describes noun?",a:"adjective"},
+{q:"Opposite early?",a:"late"},{q:"Plural of tooth?",a:"teeth"},{q:"Group of cows?",a:"herd"},
+{q:"Synonym for big?",a:"large"},{q:"Not right?",a:"wrong"},{q:"Plural of woman?",a:"women"},
+{q:"Opposite remember?",a:"forget"},{q:"NOT vowel: A,B,E?",a:"b"},{q:"See animals at?",a:"zoo"},
+{q:"Synonym little?",a:"small"},{q:"Before December?",a:"november"},{q:"Plural of man?",a:"men"}
+],
+science:[
+{q:"Planets in solar system?",a:"8"},{q:"Plants breathe in?",a:"carbon dioxide"},
+{q:"Largest ocean?",a:"pacific"},{q:"H2O is?",a:"water"},{q:"We breathe?",a:"oxygen"},
+{q:"Solar system center?",a:"sun"},{q:"Eats only plants?",a:"herbivore"},
+{q:"Human bones (approx)?",a:"206"},{q:"Hardest substance?",a:"diamond"},{q:"Pulls to Earth?",a:"gravity"},
+{q:"Bees collect?",a:"nectar"},{q:"Largest land animal?",a:"elephant"},
+{q:"Closest star?",a:"sun"},{q:"Water vapor state?",a:"gas"},{q:"Studies rocks?",a:"geologist"},
+{q:"Hottest planet?",a:"venus"},{q:"Plants produce?",a:"oxygen"},{q:"Fastest land animal?",a:"cheetah"},
+{q:"Most abundant gas?",a:"nitrogen"},{q:"Smallest planet?",a:"mercury"},
+{q:"Eats meat & plants?",a:"omnivore"},{q:"Insect legs?",a:"6"},{q:"Largest ocean mammal?",a:"whale"},
+{q:"Planet with rings?",a:"saturn"},{q:"Butterflies start as?",a:"caterpillar"},
+{q:"Tallest tree type?",a:"redwood"},{q:"Frozen water?",a:"ice"},{q:"Red Planet?",a:"mars"},
+{q:"Eats only meat?",a:"carnivore"},{q:"Atom center?",a:"nucleus"}
+],
+geography:[
+{q:"US capital?",a:"washington dc"},{q:"How many continents?",a:"7"},
+{q:"Tallest mountain?",a:"everest"},{q:"East coast ocean?",a:"atlantic"},
+{q:"South of US?",a:"mexico"},{q:"Largest country?",a:"russia"},{q:"Egypt in?",a:"africa"},
+{q:"France capital?",a:"paris"},{q:"Longest river?",a:"nile"},{q:"Grand Canyon state?",a:"arizona"},
+{q:"North of US?",a:"canada"},{q:"England capital?",a:"london"},{q:"West coast ocean?",a:"pacific"},
+{q:"Smallest continent?",a:"australia"},{q:"Great Wall country?",a:"china"},
+{q:"Italy capital?",a:"rome"},{q:"Everglades state?",a:"florida"},{q:"Japan capital?",a:"tokyo"},
+{q:"Brazil in?",a:"south america"},{q:"African desert?",a:"sahara"},
+{q:"Spain capital?",a:"madrid"},{q:"Disney World state?",a:"florida"},
+{q:"Eiffel Tower country?",a:"france"},{q:"Canada capital?",a:"ottawa"},
+{q:"Near Antarctica?",a:"southern"},{q:"Boot shaped?",a:"italy"},{q:"Biggest US state?",a:"alaska"},
+{q:"India in?",a:"asia"},{q:"Through Egypt?",a:"nile"},{q:"Germany capital?",a:"berlin"}
+],
+riddles:[
+{q:"Keys no locks?",a:"piano"},{q:"Travel world stay corner?",a:"stamp"},
+{q:"Most stories?",a:"library"},{q:"Up never down?",a:"age"},
+{q:"Speak no mouth hear no ears?",a:"echo"},{q:"Head tail no body?",a:"coin"},
+{q:"Once minute twice moment never thousand years?",a:"m"},
+{q:"Hold without touching?",a:"breath"},{q:"Words never speaks?",a:"book"},
+{q:"Belongs to you others use?",a:"name"},{q:"Bigger taking away?",a:"hole"},
+{q:"Many keys can't open doors?",a:"piano"},{q:"Break without touching?",a:"promise"},
+{q:"Runs yard never moves?",a:"fence"},{q:"Bottom at top?",a:"leg"},
+{q:"Through towns over hills never moves?",a:"road"},{q:"Ring no finger?",a:"phone"},
+{q:"Coat always wet?",a:"paint"},{q:"Cities no houses?",a:"map"},
+{q:"Tree carry in hand?",a:"palm"}
+],
+sports:[
+{q:"2023 World Series?",a:"rangers"},{q:"Baseball players?",a:"9"},
+{q:"Soccer head kick?",a:"header"},{q:"First base?",a:"first base"},
+{q:"Soccer goal points?",a:"1"},{q:"Throws to batter?",a:"pitcher"},
+{q:"Yellow card?",a:"warning"},{q:"Bases loaded hit?",a:"grand slam"},
+{q:"Defends goal?",a:"goalie"},{q:"Calls balls strikes?",a:"umpire"},
+{q:"Soccer match length?",a:"90 minutes"},{q:"NY pinstripes team?",a:"yankees"},
+{q:"Soccer out of bounds?",a:"out"},{q:"Baseball offense at once?",a:"1"},
+{q:"Hit by pitch get?",a:"walk"},{q:"Most World Series?",a:"yankees"},
+{q:"3 goals?",a:"hat trick"},{q:"Closest to home?",a:"first"},
+{q:"Calls fouls soccer?",a:"referee"},{q:"Outfielders play?",a:"outfield"},
+{q:"Invented soccer?",a:"england"},{q:"Around home plate?",a:"batter's box"},
+{q:"Soccer substitutions?",a:"3"},{q:"2024 World Series?",a:"dodgers"},
+{q:"Free kick score?",a:"goal"},{q:"2022 World Series?",a:"astros"},
+{q:"Behind home plate?",a:"catcher"},{q:"Goal box?",a:"penalty box"},
+{q:"Batter misses 3?",a:"strikeout"},{q:"Every 4 years?",a:"soccer"}
+]
+},
+
+3:{
+math:[
+{q:"25×4?",a:"100"},{q:"144÷12?",a:"12"},{q:"37+28?",a:"65"},{q:"82-47?",a:"35"},
+{q:"15×6?",a:"90"},{q:"72÷8?",a:"9"},{q:"Square perimeter side 5?",a:"20"},
+{q:"11×11?",a:"121"},{q:"156-89?",a:"67"},{q:"18×5?",a:"90"},{q:"96÷6?",a:"16"},
+{q:"1/2+1/4 decimal?",a:"0.75"},{q:"45+67?",a:"112"},{q:"12×12?",a:"144"},
+{q:"200-137?",a:"63"},{q:"16×7?",a:"112"},{q:"135÷9?",a:"15"},
+{q:"50% of 200?",a:"100"},{q:"Rectangle 8×5 area?",a:"40"},{q:"9×13?",a:"117"},
+{q:"234+178?",a:"412"},{q:"13×8?",a:"104"},{q:"108÷12?",a:"9"},{q:"95-48?",a:"47"},
+{q:"14×9?",a:"126"},{q:"150÷10?",a:"15"},{q:"67+89?",a:"156"},{q:"17×6?",a:"102"},
+{q:"180÷15?",a:"12"},{q:"123-76?",a:"47"},{q:"19×7?",a:"133"},{q:"132÷11?",a:"12"},
+{q:"88+95?",a:"183"},{q:"21×5?",a:"105"},{q:"160÷8?",a:"20"},{q:"145-87?",a:"58"},
+{q:"23×4?",a:"92"},{q:"196÷14?",a:"14"},{q:"76+84?",a:"160"},{q:"25×8?",a:"200"}
+],
+language:[
+{q:"Synonym courageous?",a:"brave"},{q:"Run past tense?",a:"ran"},
+{q:"Describes noun?",a:"adjective"},{q:"Make better?",a:"improve"},
+{q:"Opposite ancient?",a:"modern"},{q:"Beautiful syllables?",a:"3"},
+{q:"List separator?",a:"comma"},{q:"Life story?",a:"biography"},
+{q:"Plural goose?",a:"geese"},{q:"Antonym generous?",a:"selfish"},
+{q:"Work together?",a:"cooperate"},{q:"Write past?",a:"wrote"},
+{q:"Compare with like/as?",a:"simile"},{q:"Female hero?",a:"heroine"},
+{q:"Good superlative?",a:"best"},{q:"Synonym intelligent?",a:"smart"},
+{q:"Swim past?",a:"swam"},{q:"To show?",a:"demonstrate"},
+{q:"Plural knife?",a:"knives"},{q:"Antonym difficult?",a:"easy"},
+{q:"Shows action?",a:"verb"},{q:"To understand?",a:"comprehend"},
+{q:"Sing past?",a:"sang"},{q:"Plural cactus?",a:"cacti"},
+{q:"Synonym gigantic?",a:"huge"},{q:"Very hungry?",a:"starving"},
+{q:"Bring past?",a:"brought"},{q:"Plural sheep?",a:"sheep"},
+{q:"Antonym whisper?",a:"shout"},{q:"To explain?",a:"describe"}
+],
+science:[
+{q:"Plants make food?",a:"photosynthesis"},{q:"Smallest life unit?",a:"cell"},
+{q:"Opposes motion?",a:"friction"},{q:"Earth's sun path?",a:"orbit"},
+{q:"3 states of matter?",a:"solid liquid gas"},{q:"Pumps blood?",a:"heart"},
+{q:"Largest planet?",a:"jupiter"},{q:"Eats both?",a:"omnivore"},
+{q:"Plants produce?",a:"oxygen"},{q:"Weather study?",a:"meteorology"},
+{q:"Water boils Celsius?",a:"100"},{q:"Fastest land animal?",a:"cheetah"},
+{q:"Brain function?",a:"control"},{q:"Underground molten rock?",a:"magma"},
+{q:"Earth orbit days?",a:"365 days"},{q:"Study of life?",a:"biology"},
+{q:"Baby frog?",a:"tadpole"},{q:"Largest organ?",a:"skin"},
+{q:"Closest to sun?",a:"mercury"},{q:"Water freezes Celsius?",a:"0"},
+{q:"Earth outer layer?",a:"crust"},{q:"Star study?",a:"astronomy"},
+{q:"We exhale?",a:"carbon dioxide"},{q:"Fastest bird?",a:"falcon"},
+{q:"Smallest planet?",a:"mercury"},{q:"Above ground molten?",a:"lava"},
+{q:"Ocean study?",a:"oceanography"},{q:"Heart chambers?",a:"4"},
+{q:"Most moons?",a:"saturn"},{q:"Largest bird?",a:"ostrich"}
+],
+geography:[
+{q:"Japan capital?",a:"tokyo"},{q:"Around Antarctica?",a:"southern"},
+{q:"Italy capital?",a:"rome"},{q:"Largest hot desert?",a:"sahara"},
+{q:"Most people?",a:"china"},{q:"Through Egypt?",a:"nile"},
+{q:"Everest range?",a:"himalayas"},{q:"Smallest continent?",a:"australia"},
+{q:"Great Barrier Reef?",a:"australia"},{q:"Canada capital?",a:"ottawa"},
+{q:"Brazil capital?",a:"brasilia"},{q:"Longest S America river?",a:"amazon"},
+{q:"Most islands?",a:"sweden"},{q:"India capital?",a:"new delhi"},
+{q:"Tallest N America?",a:"denali"},{q:"Pyramids country?",a:"egypt"},
+{q:"Mexico capital?",a:"mexico city"},{q:"Africa to Australia?",a:"indian"},
+{q:"Most lakes?",a:"canada"},{q:"Russia capital?",a:"moscow"},
+{q:"Europe to Africa sea?",a:"mediterranean"},{q:"Driest place?",a:"antarctica"},
+{q:"Australia capital?",a:"canberra"},{q:"Longest Europe river?",a:"volga"},
+{q:"Continent country?",a:"australia"},{q:"China capital?",a:"beijing"},
+{q:"US-Canada waterfall?",a:"niagara"},{q:"Smallest country?",a:"vatican"},
+{q:"S Korea capital?",a:"seoul"},{q:"Largest Africa lake?",a:"victoria"}
+],
+riddles:[
+{q:"More take more leave?",a:"footsteps"},{q:"13 hearts no organs?",a:"deck of cards"},
+{q:"Wetter when dries?",a:"towel"},{q:"Run never walk?",a:"river"},
+{q:"Branches no leaves?",a:"bank"},{q:"4 legs morning 2 noon 3 evening?",a:"human"},
+{q:"Flies no wings?",a:"time"},{q:"Ears can't hear?",a:"corn"},
+{q:"Look through wall?",a:"window"},{q:"Say name breaks?",a:"silence"},
+{q:"Keep after giving?",a:"word"},{q:"Every minute twice moment?",a:"m"},
+{q:"Bed never sleeps?",a:"river"},{q:"Band never plays?",a:"rubber band"},
+{q:"One head one foot four legs?",a:"bed"},{q:"Fill room no space?",a:"light"},
+{q:"Never answer yes?",a:"are you asleep"},{q:"Front can't see?",a:"future"},
+{q:"Black buy red use?",a:"charcoal"},{q:"Teeth can't bite?",a:"comb"}
+],
+sports:[
+{q:"Most home runs ever?",a:"bonds"},{q:"All 4 bases?",a:"home run"},
+{q:"Boston MLB?",a:"red sox"},{q:"Penalty kick is?",a:"free shot"},
+{q:"The Bambino?",a:"ruth"},{q:"Offsides is?",a:"illegal position"},
+{q:"MLB teams?",a:"30"},{q:"Most World Cups?",a:"brazil"},
+{q:"Yankees home?",a:"yankee stadium"},{q:"Goalie can?",a:"use hands"},
+{q:"2024 HR record?",a:"judge"},{q:"Kick to teammate?",a:"pass"},
+{q:"Ruth's team?",a:"yankees"},{q:"Tied after 90?",a:"overtime"},
+{q:"MLB trophy?",a:"world series"},{q:"Argentina 10?",a:"messi"},
+{q:"Baseball umpires?",a:"4"},{q:"Red card?",a:"ejection"},
+{q:"Most championships?",a:"yankees"},{q:"Goalie uses hands?",a:"in the box"},
+{q:"Steal a base?",a:"stolen base"},{q:"2022 World Cup host?",a:"qatar"},
+{q:"Baseball cycle?",a:"all hit types"},{q:"USA men's Cups?",a:"0"},
+{q:"Between 2nd & 3rd?",a:"shortstop"},{q:"Most popular sport?",a:"soccer"},
+{q:"Most strikeouts?",a:"ryan"},{q:"3 goals?",a:"hat trick"},
+{q:"Wrigley Field?",a:"cubs"},{q:"Corner kick?",a:"restart from corner"}
+]
+},
+
+4:{
+math:[
+{q:"347+568?",a:"915"},{q:"23×15?",a:"345"},{q:"3/4 percent?",a:"75"},
+{q:"816÷24?",a:"34"},{q:"LCM 4 & 6?",a:"12"},{q:"15% of 200?",a:"30"},
+{q:"2.5×4?",a:"10"},{q:"Triangle base 10 height 6?",a:"30"},{q:"125÷5?",a:"25"},
+{q:"18×18?",a:"324"},{q:"√144?",a:"12"},{q:"456-289?",a:"167"},
+{q:"3²+4²?",a:"25"},{q:"0.25×100?",a:"25"},{q:"20% of 150?",a:"30"},
+{q:"17×19?",a:"323"},{q:"Cube side 3 volume?",a:"27"},{q:"456+789?",a:"1245"},
+{q:"28×16?",a:"448"},{q:"2/5 decimal?",a:"0.4"},{q:"924÷28?",a:"33"},
+{q:"GCF 24 & 36?",a:"12"},{q:"25% of 80?",a:"20"},{q:"3.5×6?",a:"21"},
+{q:"189÷9?",a:"21"},{q:"234+567?",a:"801"},{q:"19×21?",a:"399"},
+{q:"1/5 percent?",a:"20"},{q:"675÷15?",a:"45"},{q:"10% of 500?",a:"50"},
+{q:"4.2×5?",a:"21"},{q:"Rectangle 8×5 perimeter?",a:"26"},{q:"156÷12?",a:"13"},
+{q:"345+678?",a:"1023"},{q:"22×18?",a:"396"},{q:"3/5 decimal?",a:"0.6"},
+{q:"528÷16?",a:"33"},{q:"30% of 200?",a:"60"},{q:"2.8×7?",a:"19.6"}
+],
+language:[
+{q:"Main verb: dog quickly ran?",a:"ran"},{q:"Human qualities to objects?",a:"personification"},
+{q:"Go past participle?",a:"gone"},{q:"Make seem larger?",a:"exaggerate"},
+{q:"Sounds like describes?",a:"onomatopoeia"},{q:"Shows possession?",a:"apostrophe"},
+{q:"Plural hypothesis?",a:"hypotheses"},{q:"Synonym magnificent?",a:"splendid"},
+{q:"Newspaper writing?",a:"article"},{q:"Opposite meanings?",a:"antonyms"},
+{q:"Subject: tall building collapsed?",a:"building"},{q:"Understand fully?",a:"comprehend"},
+{q:"Far comparative?",a:"farther"},{q:"Extreme tiredness?",a:"exhaustion"},
+{q:"Synonym enormous?",a:"gigantic"},{q:"Eat past participle?",a:"eaten"},
+{q:"To convince?",a:"persuade"},{q:"Plural crisis?",a:"crises"},
+{q:"Extreme exaggeration?",a:"hyperbole"},{q:"To judge?",a:"evaluate"},
+{q:"Antonym ancient?",a:"modern"},{q:"See past participle?",a:"seen"},
+{q:"Important?",a:"significant"},{q:"Plural analysis?",a:"analyses"},
+{q:"Synonym beneficial?",a:"helpful"},{q:"Break past participle?",a:"broken"},
+{q:"To investigate?",a:"examine"},{q:"Bad comparative?",a:"worse"},
+{q:"Similar meanings?",a:"synonyms"},{q:"To create?",a:"generate"}
+],
+science:[
+{q:"Gold symbol?",a:"au"},{q:"Water to vapor?",a:"evaporation"},
+{q:"Cell powerhouse?",a:"mitochondria"},{q:"Life study?",a:"biology"},
+{q:"Protein blocks?",a:"amino acids"},{q:"Earth innermost?",a:"core"},
+{q:"Heredity unit?",a:"gene"},{q:"Water formula?",a:"h2o"},
+{q:"Causes tides?",a:"gravity"},{q:"Most abundant gas?",a:"nitrogen"},
+{q:"Water freezes Fahrenheit?",a:"32"},{q:"Cooled magma rock?",a:"igneous"},
+{q:"Cell division?",a:"mitosis"},{q:"Smallest bone?",a:"stapes"},
+{q:"Iron symbol?",a:"fe"},{q:"Earthquake study?",a:"seismology"},
+{q:"Controls cell?",a:"nucleus"},{q:"Largest organ?",a:"skin"},
+{q:"Sodium symbol?",a:"na"},{q:"Limestone type?",a:"sedimentary"},
+{q:"Plants release water?",a:"transpiration"},{q:"Proton charge?",a:"positive"},
+{q:"Carbon symbol?",a:"c"},{q:"Earthquake scale?",a:"richter"},
+{q:"Atom center?",a:"nucleus"},{q:"Fossil study?",a:"paleontology"},
+{q:"Metamorphic type?",a:"marble"},{q:"Oxygen symbol?",a:"o"},
+{q:"Pulls down?",a:"gravity"},{q:"Atmosphere study?",a:"meteorology"}
+],
+geography:[
+{q:"Australia capital?",a:"canberra"},{q:"Europe-Africa strait?",a:"gibraltar"},
+{q:"Longest range?",a:"andes"},{q:"Most time zones?",a:"france"},
+{q:"Brazil capital?",a:"brasilia"},{q:"Europe-Africa sea?",a:"mediterranean"},
+{q:"Deepest trench?",a:"mariana"},{q:"7000+ islands?",a:"philippines"},
+{q:"India capital?",a:"new delhi"},{q:"Through Baghdad?",a:"tigris"},
+{q:"Thailand capital?",a:"bangkok"},{q:"Largest Africa lake?",a:"victoria"},
+{q:"Longest coastline?",a:"canada"},{q:"Smallest country?",a:"vatican"},
+{q:"Longest S America?",a:"amazon"},{q:"Tallest N America?",a:"denali"},
+{q:"S Korea capital?",a:"seoul"},{q:"Northern Africa?",a:"sahara"},
+{q:"Deepest lake?",a:"baikal"},{q:"Giza pyramids?",a:"egypt"},
+{q:"Argentina capital?",a:"buenos aires"},{q:"Lowest point?",a:"dead sea"},
+{q:"Largest island?",a:"greenland"},{q:"Turkey capital?",a:"ankara"},
+{q:"Second longest river?",a:"amazon"},{q:"Europe & Asia?",a:"russia"},
+{q:"Egypt capital?",a:"cairo"},{q:"Europe-Asia range?",a:"urals"},
+{q:"Driest desert?",a:"atacama"},{q:"Kenya capital?",a:"nairobi"}
+],
+riddles:[
+{q:"Disappears when say?",a:"silence"},{q:"Can't talk replies?",a:"echo"},
+{q:"Light can't hold 5 min?",a:"breath"},{q:"Hands can't clap?",a:"clock"},
+{q:"Starts E one letter?",a:"envelope"},{q:"Shorter add letters?",a:"short"},
+{q:"Middle March April?",a:"r"},{q:"Break not touch?",a:"promise"},
+{q:"Bigger take away?",a:"hole"},{q:"Coming never arrives?",a:"tomorrow"},
+{q:"World stay corner?",a:"stamp"},{q:"Head tail no body?",a:"coin"},
+{q:"Runs never tired?",a:"water"},{q:"Keys can't open?",a:"piano"},
+{q:"Yours others use?",a:"name"},{q:"Neck no head?",a:"bottle"},
+{q:"Fill room no space?",a:"light"},{q:"Words never speaks?",a:"book"},
+{q:"Eye can't see?",a:"needle"},{q:"Teeth can't eat?",a:"comb"}
+],
+sports:[
+{q:"Most career hits?",a:"rose"},{q:"Perfect game?",a:"no hitter no walks"},
+{q:"Fenway Park?",a:"red sox"},{q:"VAR soccer?",a:"video review"},
+{q:"Most stolen bases?",a:"henderson"},{q:"Extra time?",a:"overtime"},
+{q:"Triple crown?",a:"lead in 3 stats"},{q:"2018 World Cup?",a:"france"},
+{q:"No-hitter?",a:"no hits allowed"},{q:"Golden goal?",a:"first in overtime wins"},
+{q:"Most RBIs?",a:"aaron"},{q:"Different color?",a:"goalkeeper"},
+{q:"Cy Young for?",a:"best pitcher"},{q:"Invented baseball?",a:"united states"},
+{q:"Balk?",a:"illegal pitch move"},{q:"Soccer team total?",a:"11"},
+{q:"Most championships?",a:"yankees"},{q:"Stoppage time?",a:"added time"},
+{q:"MVP?",a:"most valuable player"},{q:"World Cup scorer?",a:"klose"},
+{q:"Sacrifice fly?",a:"out scores run"},{q:"Through ball?",a:"pass behind defense"},
+{q:"First World Series?",a:"red sox"},{q:"Bicycle kick?",a:"overhead kick"},
+{q:"DH?",a:"designated hitter"},{q:"Most World Cups?",a:"brazil"},
+{q:"Squeeze play?",a:"bunt scores runner"},{q:"Nutmeg?",a:"ball through legs"},
+{q:"First $100M player?",a:"rodriguez"},{q:"Tiki-taka?",a:"passing style"}
+]
+},
+5:{
+math:[
+{q:"17×23?",a:"391"},{q:"Pi 2 decimals?",a:"3.14"},{q:"120 miles 2 hours mph?",a:"60"},
+{q:"7³?",a:"343"},{q:"25% of 80?",a:"20"},{q:"GCF 24 & 36?",a:"12"},
+{q:"Triangle angles?",a:"180"},{q:"15²?",a:"225"},{q:"40% of 250?",a:"100"},
+{q:"Median 3,7,9,12,15?",a:"9"},{q:"2⁵?",a:"32"},{q:"3.75×8?",a:"30"},
+{q:"x+7=15, x?",a:"8"},{q:"567+891?",a:"1458"},{q:"29×17?",a:"493"},
+{q:"4/5 percent?",a:"80"},{q:"1089÷33?",a:"33"},{q:"12% of 250?",a:"30"},
+{q:"6.5×12?",a:"78"},{q:"√169?",a:"13"},{q:"678-345?",a:"333"},
+{q:"4²+3²?",a:"25"},{q:"0.6×50?",a:"30"},{q:"35% of 200?",a:"70"},
+{q:"21×24?",a:"504"},{q:"5/8 decimal?",a:"0.625"},{q:"896÷28?",a:"32"},
+{q:"LCM 6 & 8?",a:"24"},{q:"8.4×6?",a:"50.4"},{q:"2x=24, x?",a:"12"}
+],
+language:[
+{q:"Greek for life?",a:"bio"},{q:"Spider fear?",a:"arachnophobia"},
+{q:"Two independent clauses?",a:"compound"},{q:"Peter Piper?",a:"alliteration"},
+{q:"Impossible read?",a:"illegible"},{q:"Latin write?",a:"scrib"},
+{q:"I and me?",a:"first person"},{q:"Twice a year?",a:"biannual"},
+{q:"Compare no like/as?",a:"metaphor"},{q:"Bad superlative?",a:"worst"},
+{q:"Synonym ubiquitous?",a:"everywhere"},{q:"Swim participle?",a:"swum"},
+{q:"To confirm?",a:"verify"},{q:"Plural datum?",a:"data"},
+{q:"Objects human traits?",a:"personification"},{q:"To lessen?",a:"diminish"},
+{q:"Antonym optimistic?",a:"pessimistic"},{q:"Sing participle?",a:"sung"},
+{q:"To emphasize?",a:"accentuate"},{q:"Plural phenomenon?",a:"phenomena"},
+{q:"Synonym meticulous?",a:"careful"},{q:"Drink participle?",a:"drunk"},
+{q:"Make worse?",a:"aggravate"},{q:"Good comparative?",a:"better"},
+{q:"Extreme exaggeration?",a:"hyperbole"},{q:"Spread throughout?",a:"permeate"},
+{q:"Antonym concise?",a:"verbose"},{q:"Choose participle?",a:"chosen"},
+{q:"Brief summary?",a:"synopsis"},{q:"Plural vertebra?",a:"vertebrae"}
+],
+science:[
+{q:"Newton's 1st law?",a:"inertia"},{q:"Iron symbol?",a:"fe"},
+{q:"Controls cell entry?",a:"membrane"},{q:"Earthquake study?",a:"seismology"},
+{q:"Largest organ?",a:"skin"},{q:"Photosynthesis produces?",a:"oxygen"},
+{q:"Atom center?",a:"nucleus"},{q:"Earthquake scale?",a:"richter"},
+{q:"Liquid to gas?",a:"evaporation"},{q:"Red Planet?",a:"mars"},
+{q:"Silver symbol?",a:"ag"},{q:"Heredity study?",a:"genetics"},
+{q:"Granite type?",a:"igneous"},{q:"Electron charge?",a:"negative"},
+{q:"Helium symbol?",a:"he"},{q:"Fungi study?",a:"mycology"},
+{q:"Energy organelle?",a:"mitochondria"},{q:"Element smallest?",a:"atom"},
+{q:"Mercury symbol?",a:"hg"},{q:"Opposes motion?",a:"friction"},
+{q:"Marble type?",a:"metamorphic"},{q:"Insect study?",a:"entomology"},
+{q:"Lead symbol?",a:"pb"},{q:"Light speed km/s?",a:"300000"},
+{q:"Packages proteins?",a:"golgi"},{q:"Potassium symbol?",a:"k"},
+{q:"Bird study?",a:"ornithology"},{q:"Shale type?",a:"sedimentary"},
+{q:"Compound smallest?",a:"molecule"},{q:"Tin symbol?",a:"sn"}
+],
+geography:[
+{q:"Thailand capital?",a:"bangkok"},{q:"Largest Africa lake?",a:"victoria"},
+{q:"Longest coastline?",a:"canada"},{q:"Smallest country?",a:"vatican"},
+{q:"Longest S America?",a:"amazon"},{q:"Tallest N America?",a:"denali"},
+{q:"S Korea capital?",a:"seoul"},{q:"Northern Africa?",a:"sahara"},
+{q:"Deepest lake?",a:"baikal"},{q:"Giza pyramids?",a:"egypt"},
+{q:"Norway capital?",a:"oslo"},{q:"Highest waterfall?",a:"angel falls"},
+{q:"Most volcanoes?",a:"indonesia"},{q:"Peru capital?",a:"lima"},
+{q:"Largest desert?",a:"antarctic"},{q:"Machu Picchu in?",a:"peru"},
+{q:"NZ capital?",a:"wellington"},{q:"Saltiest sea?",a:"dead sea"},
+{q:"Most UNESCO?",a:"italy"},{q:"Vietnam capital?",a:"hanoi"},
+{q:"Longest cave?",a:"mammoth cave"},{q:"11 time zones?",a:"russia"},
+{q:"Chile capital?",a:"santiago"},{q:"Driest place?",a:"atacama"},
+{q:"Taj Mahal?",a:"india"},{q:"Morocco capital?",a:"rabat"},
+{q:"Largest bay?",a:"hudson bay"},{q:"Stonehenge?",a:"england"},
+{q:"Portugal capital?",a:"lisbon"},{q:"Highest capital?",a:"la paz"}
+],
+logic:[
+{q:"All roses flowers some fade can all roses fade?",a:"no"},
+{q:"2,6,12,20,__?",a:"30"},{q:"Have 3 take 2 YOU have?",a:"2"},
+{q:"J,F,M,A,M,__?",a:"j"},{q:"17 sheep all but 9 die left?",a:"9"},
+{q:"3,9,27,__?",a:"81"},{q:"Monday in 100 days?",a:"wednesday"},
+{q:"1,1,2,3,5,8,__?",a:"13"},{q:"Always coming never arrives?",a:"tomorrow"},
+{q:"5,10,20,40,__?",a:"80"},{q:"3 pills half hour how long?",a:"1 hour"},
+{q:"A,C,F,J,__?",a:"o"},{q:"28 day months?",a:"12"},
+{q:"1,4,9,16,25,__?",a:"36"},{q:"Overtake 2nd what place?",a:"2nd"},
+{q:"100,50,25,12.5,__?",a:"6.25"},{q:"Subtract 5 from 25 times?",a:"1"},
+{q:"Z,Y,X,W,__?",a:"v"},{q:"12 one-cent dozen two-cent?",a:"12"},
+{q:"2,3,5,7,11,__?",a:"13"}
+],
+sports:[
+{q:"Most career Ks?",a:"ryan"},{q:"3 goals?",a:"3 goals"},
+{q:"73 HRs season?",a:"bonds"},{q:"Golden Boot?",a:"top scorer award"},
+{q:"Perfect game?",a:"27 up 27 down"},{q:"Most Ballon d'Or?",a:"messi"},
+{q:"HR record?",a:"73"},{q:"False nine?",a:"withdrawn striker"},
+{q:"Highest batting average?",a:"cobb"},{q:"First World Cup host?",a:"uruguay"},
+{q:"Most pitcher wins season?",a:"41"},{q:"Gegenpressing?",a:"counter pressing"},
+{q:"Fastest pitch?",a:"chapman"},{q:"Offside trap?",a:"defensive strategy"},
+{q:"Longest WS drought?",a:"mariners"},{q:"Most WC goals player?",a:"klose"},
+{q:"RBIs season record?",a:"191"},{q:"Sweeper?",a:"defensive position"},
+{q:"Consecutive games?",a:"ripken"},{q:"Never missed WC?",a:"brazil"},
+{q:"Complete game?",a:"pitch all 9"},{q:"Total football?",a:"fluid positions"},
+{q:"Most grand slams?",a:"rodriguez"},{q:"Volley?",a:"kick before bounce"},
+{q:"Oldest stadium?",a:"fenway"},{q:"First WC winner?",a:"uruguay"},
+{q:"ERA?",a:"era"},{q:"Chip shot?",a:"lofted shot"},
+{q:"Most MVPs?",a:"bonds"},{q:"12th man?",a:"fans"}
+]
+}
 };
 
-// ---------- Elements ----------
-const hpEl=document.getElementById("hp"),
-      levelEl=document.getElementById("level"),
-      minionsEl=document.getElementById("minions"),
-      catEl=document.getElementById("category"),
-      qEl=document.getElementById("question"),
-      ans=document.getElementById("answer"),
-      sub=document.getElementById("submit"),
-      feedback=document.getElementById("feedback"),
-      dice=document.getElementById("dice"),
-      minion=document.getElementById("minion"),
-      boss=document.getElementById("boss"),
-      timerEl=document.getElementById("timer"),
-      ach=document.getElementById("achievements"),
-      achList=document.getElementById("ach-list");
-
-let hp=100,level=1,minions=10,timer,timeLeft=30,bossHP=40,question={},bossMode=false,streak=0,totalCorrect=0,totalQ=0;
-
-// ---------- Question bank (expand to 300) ----------
-const bank={
-  math:[
-    {q:"8+7=?",a:"15"},
-    {q:"12-9=?",a:"3"},
-    {q:"5×6=?",a:"30"},
-    {q:"24÷8=?",a:"3"}
-  ],
-  language:[
-    {q:"Plural of 'child'?",a:"children"},
-    {q:"Opposite of 'hot'?",a:"cold"}
-  ],
-  riddle:[
-    {q:"I speak without a mouth and hear without ears. What am I?",a:"echo"},
-    {q:"What has to be broken before you can use it?",a:"egg"}
-  ],
-  puzzle:[
-    {q:"What comes next: 2,4,6,8,...",a:"10"},
-    {q:"If you rearrange 'LEPA', you get a fruit:",a:"apple"}
-  ],
-  geography:[
-    {q:"Capital of France?",a:"paris"},
-    {q:"Which continent is Egypt in?",a:"africa"}
-  ],
-  spelling:[
-    {q:"Spell the opposite of 'night'",a:"day"},
-    {q:"Spell the insect that makes honey",a:"bee"}
-  ]
-};
-
-// ---------- Helpers ----------
-function randomCategory(){
-  const keys=Object.keys(bank);
-  return keys[Math.floor(Math.random()*keys.length)];
-}
-function showQuestion(){
-  const cat=randomCategory();
-  const qlist=bank[cat];
-  question=qlist[Math.floor(Math.random()*qlist.length)];
-  catEl.textContent="Category: "+cat.toUpperCase();
-  qEl.textContent=question.q;
-  ans.value="";
-  feedback.textContent="";
-  timeLeft= level<=2?30: level==3?25: level==4?20:15;
-  timerEl.textContent="⏱ "+timeLeft+"s";
-  clearInterval(timer);
-  timer=setInterval(()=>{timeLeft--;timerEl.textContent="⏱ "+timeLeft+"s";if(timeLeft<=0){clearInterval(timer);hp-=10;updateHUD();next();}},1000);
-}
-
-function updateHUD(){hpEl.textContent=hp;levelEl.textContent=level;minionsEl.textContent=minions;}
-
-function next(){
-  if(hp<=0)return end("💀 Out of HP!");
-  if(minions<=0)return bossBattle();
-  minion.style.opacity=1;
-  minion.style.transform="scale(1)";
-  setTimeout(()=>{minion.style.transform="scale(1.4)";},50);
-  setTimeout(()=>{rollDice();},1000);
-}
-
-function rollDice(){
-  dice.style.opacity=1;
-  dice.classList.add("roll-anim");
-  sfx.roll.play();
-  setTimeout(()=>{
-    dice.classList.remove("roll-anim");
-    dice.style.opacity=0;
-    showQuestion();
-  },1500);
-}
-
-// ---------- Check Answer ----------
-function checkAnswer(){
-  clearInterval(timer);
-  const a=ans.value.trim().toLowerCase();
-  totalQ++;
-  if(a===question.a.toLowerCase()){ // correct
-    sfx.correct.play();
-    feedback.textContent="✅ Correct!";
-    totalCorrect++; streak++;
-    hp+=3; minions--; updateHUD();
-  } else {
-    sfx.wrong.play();
-    feedback.textContent="❌ Wrong! ("+question.a+")";
-    hp-=10; streak=0; minions--; updateHUD();
-  }
-  if(minions<=0)bossBattle(); else setTimeout(next,1200);
-}
-
-// ---------- Boss ----------
-function bossBattle(){
-  bossMode=true;
-  feedback.textContent="🔥 Boss Appears!";
-  minion.style.opacity=0;
-  bossHP=level*40;
-  setTimeout(bossQuestion,1500);
-}
-function bossQuestion(){
-  question={q:`Solve: (${10*level}+${5*level}) ÷ 5 = ?`,a:String(3*level)};
-  qEl.textContent=question.q+" (Boss HP:"+bossHP+")";
-  clearInterval(timer);
-  timeLeft=25; timer=setInterval(()=>{timeLeft--;timerEl.textContent="⏱ "+timeLeft+"s";if(timeLeft<=0){clearInterval(timer);hp-=10;updateHUD();bossQuestion();}},1000);
-}
-function bossHit(){
-  boss.classList.add("boss-hit");
-  setTimeout(()=>boss.classList.remove("boss-hit"),300);
-}
-
-// ---------- End / Achievements ----------
-function end(msg){
-  clearInterval(timer);
-  feedback.textContent=msg;
-  ach.style.display="block";
-  const acc=((totalCorrect/totalQ)*100).toFixed(0);
-  achList.innerHTML=`<li>Accuracy: ${acc}%</li><li>Best Streak: ${streak}</li><li>Bosses Defeated: ${level-1}</li>`;
-  localStorage.removeItem("brainquest");
-}
-function win(){
-  level++; localStorage.setItem("brainquest",JSON.stringify({level,hp}));
-  feedback.textContent="🎉 Boss defeated! Level up!";
-  setTimeout(()=>{bossMode=false;minions=10;updateHUD();next();},2000);
-}
-
-// ---------- Init ----------
-sub.onclick=checkAnswer;
-ans.addEventListener("keyup",e=>{if(e.key==="Enter")checkAnswer();});
-
-function loadSave(){
-  const save=localStorage.getItem("brainquest");
-  if(save){const d=JSON.parse(save);level=d.level;hp=d.hp;}
-}
-loadSave(); updateHUD(); next();
+const CAT={math:"🔢 MATH",language:"📖 LANG",science:"🔬 SCI",
+geography:"🌍 GEO",riddles:"🤔 RIDDLES",logic:"🧩 LOGIC",sports:"⚾ SPORTS"};
+const getDiff=()=>lvl<=2?1:lvl<=4?2:lvl<=6?3:lvl<=8?4:5;
+const updateDiff=()=>{diffLvl=getDiff();diffLvlEl.textContent=diffLvl;
+gradeLvlEl.textContent={1:"2nd",2:"3rd",3:"4th",4:"5th",5:"Challenge"}[diffLvl];};
+const updateProg=()=>{const done=totalMin-minions,pct=(done/totalMin)*100;
+progBarEl.style.width=pct+"%";progTxtEl.textContent=`Round: ${done}/${totalMin}`;};
+const updateQCnt=()=>{const left=minions,done=totalMin-minions;
+bossMode?qCntEl.textContent=`🐉 BOSS - HP: ${bossHP}`:
+qCntEl.textContent=`Q ${done+1}/${totalMin} | Left: ${left}`;};
+const getCat=()=>{const cats=Object.keys(Q[diffLvl]);
+return cats[Math.floor(Math.random()*cats.length)];};
+const getQ=(c)=>{const qs=Q[diffLvl][c];return qs[Math.floor(Math.random()*qs.length)];};
+const rollDice=(cb)=>{sfx.roll.play().catch(()=>{});diceEl.style.opacity=1;
+diceLblEl.textContent="?";diceEl.classList.add("roll-anim");let rc=0;
+const ri=setInterval(()=>{const tc=getCat();diceLblEl.textContent=CAT[tc].split(" ")[1];
+rc++;if(rc>=8)clearInterval(ri);},150);setTimeout(()=>{diceEl.classList.remove("roll-anim");
+const fc=getCat();curCat=fc;diceLblEl.textContent=CAT[fc].split(" ")[1];
+setTimeout(()=>{diceEl.style.opacity=0;if(cb)cb();},800);},2000);};
+const showQ=()=>{const q=getQ(curCat);curQ=q;catEl.textContent=CAT[curCat];
+qEl.textContent=q.q;ansEl.value="";fbEl.textContent="";updateQCnt();
+ansEl.style.display="block";ansEl.focus();subBtn.style.display="block";
+timeLeft=diffLvl===1?30:diffLvl===2?25:diffLvl===3?20:diffLvl===4?18:15;
+updateTimer();clearInterval(timer);timer=setInterval(()=>{timeLeft--;updateTimer();
+if(timeLeft<=0){clearInterval(timer);wrong("⏰ Time up!");}},1000);};
+const updateTimer=()=>{timerEl.textContent=`⏱️ ${timeLeft}s`;
+timerEl.style.color=timeLeft<=5?"#d32f2f":"#1976d2";};
+const checkAns=(a)=>{clearInterval(timer);let ua=a||ansEl.value.trim().toLowerCase();
+const ca=curQ.a.toLowerCase();totQ++;
+if(ua===ca||ua.includes(ca)||ca.includes(ua))correct();
+else wrong(`❌ Wrong! Answer: ${curQ.a}`);};
+const correct=()=>{sfx.correct.play().catch(()=>{});fbEl.textContent="✅ Correct!";
+fbEl.className="correct-feedback";totCorrect++;streak++;if(streak>bestStreak)bestStreak=streak;
+hp=Math.min(100,hp+3);if(bossMode){bossHP-=10;bossHit();if(bossHP<=0){defeatBoss();return;}
+updateHUD();updateQCnt();setTimeout(showBossQ,1500);return;}minions--;updateHUD();updateProg();
+if(minions<=0)setTimeout(startBoss,1500);else setTimeout(nextQ,1500);};
+const wrong=(m)=>{sfx.wrong.play().catch(()=>{});fbEl.textContent=m;fbEl.className="wrong-feedback";
+streak=0;hp-=10;if(bossMode){updateHUD();updateQCnt();if(hp<=0){gameOver("💀 Out of HP!");return;}
+setTimeout(showBossQ,1500);}else{minions--;updateHUD();updateProg();if(hp<=0){gameOver("💀 Out of HP!");return;}
+if(minions<=0)setTimeout(startBoss,1500);else setTimeout(nextQ,1500);}};
+const nextQ=()=>{minionEl.style.opacity=1;minionEl.style.transform="scale(1)";
+setTimeout(()=>minionEl.style.transform="scale(1.4)",100);
+setTimeout(()=>rollDice(()=>{minionEl.style.opacity=0;showQ();}),1000);};
+const startBoss=()=>{bossMode=true;fbEl.textContent="🔥 BOSS BATTLE!";fbEl.className="";
+minionEl.style.opacity=0;bossEl.style.opacity=0.5;bossHP=lvl*30;setTimeout(showBossQ,1500);};
+const showBossQ=()=>{curCat=getCat();curQ=getQ(curCat);catEl.textContent=`${CAT[curCat]} - BOSS`;
+qEl.textContent=curQ.q;updateQCnt();ansEl.value="";ansEl.style.display="block";ansEl.focus();
+subBtn.style.display="block";fbEl.textContent="";timeLeft=20;updateTimer();
+clearInterval(timer);timer=setInterval(()=>{timeLeft--;updateTimer();
+if(timeLeft<=0){clearInterval(timer);wrong("⏰ Time up!");}},1000);};
+const bossHit=()=>{bossEl.classList.add("boss-hit");
+setTimeout(()=>bossEl.classList.remove("boss-hit"),400);};
+const defeatBoss=()=>{clearInterval(timer);fbEl.textContent="🎉 BOSS DEFEATED! LEVEL UP!";
+fbEl.className="correct-feedback";bossEl.style.opacity=0.35;lvl++;hp=Math.min(100,hp+20);
+minions=10;totalMin=10;bossMode=false;updateDiff();updateHUD();updateProg();saveProg();
+setTimeout(()=>{fbEl.textContent="Get ready!";setTimeout(nextQ,1500);},2000);};
+const updateHUD=()=>{hpEl.textContent=hp;lvlEl.textContent=lvl;minEl.textContent=minions;stkEl.textContent=streak;};
+const gameOver=(m)=>{clearInterval(timer);gameOn=false;fbEl.textContent=m;fbEl.className="wrong-feedback";
+ansEl.style.display="none";subBtn.style.display="none";achEl.style.display="block";
+const acc=totQ>0?((totCorrect/totQ)*100).toFixed(1):0;
+achList.innerHTML=`<li>📊 Total: ${totQ}</li><li>✅ Correct: ${totCorrect}</li>
+<li>🎯 Accuracy: ${acc}%</li><li>🔥 Best Streak: ${bestStreak}</li><li>⭐ Level: ${lvl}</li>
+<li>🏆 Grade: ${diffLvl===1?"2nd":diffLvl===2?"3rd":diffLvl===3?"4th":diffLvl===4?"5th":"Challenge"}</li>`;
+localStorage.removeItem("bossBattle");};
+const saveProg=()=>{const sd={level:lvl,hp:hp,totalCorrect:totCorrect,totalQuestions:totQ,bestStreak:bestStreak};
+localStorage.setItem("bossBattle",JSON.stringify(sd));};
+const loadProg=()=>{const sv=localStorage.getItem("bossBattle");if(sv){const d=JSON.parse(sv);
+lvl=d.level||1;hp=d.hp||100;totCorrect=d.totalCorrect||0;totQ=d.totalQuestions||0;
+bestStreak=d.bestStreak||0;updateDiff();updateHUD();}};
+const startGame=()=>{gameOn=true;startBtn.style.display="none";loadProg();updateDiff();
+updateHUD();updateProg();nextQ();};
+const restartGame=()=>{hp=100;lvl=1;minions=10;totalMin=10;streak=0;bestStreak=0;
+totCorrect=0;totQ=0;bossMode=false;gameOn=false;achEl.style.display="none";
+bossEl.style.opacity=0.35;minionEl.style.opacity=0;fbEl.textContent="";catEl.textContent="Get ready...";
+qEl.textContent="Press Start!";qCntEl.textContent="";ansEl.style.display="none";
+subBtn.style.display="none";startBtn.style.display="block";updateDiff();updateHUD();updateProg();
+localStorage.removeItem("bossBattle");};
+subBtn.onclick=()=>checkAns();
+ansEl.addEventListener("keyup",(e)=>{if(e.key==="Enter"&&gameOn)checkAns();});
+startBtn.onclick=startGame;restartBtn.onclick=restartGame;
+updateDiff();updateHUD();updateProg();
 </script>
 </body>
 </html>
-
-
-
-
-</head>
